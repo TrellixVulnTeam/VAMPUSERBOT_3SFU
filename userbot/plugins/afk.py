@@ -1,5 +1,5 @@
-# by hellbot...Thanks @
-# Now will be used in vampBot too....
+# by hellbot...Thanks @ForGo10God
+# Now will be used in VampBot too....
 import asyncio
 import datetime
 

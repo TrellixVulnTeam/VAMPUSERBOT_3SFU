@@ -1,10 +1,8 @@
-import datetime
-from vampbot.config import Config
-from vampbot.helpers import *
-from vampbot.utils import *
-from vampbot.random_strings import *
-from vampbot.version import __vamp__
-from telethon import version
+from userbot import *
+from userbot.utils import *
+from userbot.Config import Config
+from userbot.helpers.functions import *
+from userbot.cmdhelp import CmdHelp
 
 
 VAMP_USER = bot.me.first_name

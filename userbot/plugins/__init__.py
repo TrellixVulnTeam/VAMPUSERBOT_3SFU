@@ -1,5 +1,4 @@
 import datetime
-from vampbot import *
 from vampbot.config import Config
 from vampbot.helpers import *
 from vampbot.utils import *

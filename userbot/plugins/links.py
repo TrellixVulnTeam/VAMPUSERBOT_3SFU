@@ -1,7 +1,7 @@
 import requests
 
 from userbot import CMD_HELP
-from W2HBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
+from VAMPBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 
 

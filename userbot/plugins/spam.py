@@ -11,9 +11,9 @@ import os
 from telethon import functions, types
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
-from W2HBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
+from VAMPBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
-from W2HBOT.Config import Config
+from VAMPBOT.Config import Config
 
 SUDO_WALA = Config.SUDO_USERS
 
@@ -34,16 +34,16 @@ async def spammer(e):
 
 @bot.on(admin_cmd(pattern="bigspam"))
 @bot.on(sudo_cmd(pattern="bigspam", allow_sudo=True))
-async def bigspam(W2H):
-    if not W2H.text[0].isalpha() and W2H.text[0] not in ("/", "#", "@", "!"):
-        W2H_msg = W2H.text
-        W2HBOT_count = int(W2H_msg[9:13])
-        W2H_spam = str(W2H.text[13:])
-        for i in range(1, W2HBOT_count):
-            await W2H.respond(W2H_spam)
-        await W2H.delete()
+async def bigspam(vamp):
+    if not vamp.text[0].isalpha() and vamp.text[0] not in ("/", "#", "@", "!"):
+        VAMP_msg = vamp.text
+        VAMPBOT_count = int(VAMP_msg[9:13])
+        VAMP_spam = str(vamp.text[13:])
+        for i in range(1, VAMPBOT_count):
+            await vamp.respond(VAMP_spam)
+        await vamp.delete()
         if LOGGER:
-            await W2H.client.send_message(
+            await vamp.client.send_message(
                 LOGGER_GROUP, "#BIGSPAM \n\n" "Bigspam was executed successfully"
             )
 
@@ -101,5 +101,5 @@ CmdHelp("spam").add_command(
 ).add_command(
   "dspam", "<delay> <spam count> <text>", "Sends the text 'X' number of times in 'Y' seconds of delay", ".dspam 5 100 Hello"
 ).add_command(
-  "bigspam", "<count> <text>", "Sends the text 'X' number of times. This what W2HBOT iz known for. The Best BigSpam Ever", ".bigspam 5000 Hello"
+  "bigspam", "<count> <text>", "Sends the text 'X' number of times. This what VAMPBOT iz known for. The Best BigSpam Ever", ".bigspam 5000 Hello"
 ).add()

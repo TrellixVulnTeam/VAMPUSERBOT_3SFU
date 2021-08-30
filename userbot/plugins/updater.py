@@ -5,7 +5,7 @@ import sys
 import git
 
 from userbot.Config import Config
-from W2HBOT.utils import admin_cmd
+from VAMPBOT.utils import admin_cmd
 
 # -- Constants -- #
 IS_SELECTED_DIFFERENT_BRANCH = (
@@ -15,13 +15,13 @@ IS_SELECTED_DIFFERENT_BRANCH = (
     "please check out to an official branch, and re-start the updater."
 )
 OFFICIAL_UPSTREAM_REPO = Config.UPSTREAM_REPO
-BOT_IS_UP_TO_DATE = "**The W2HBOT** is up-to-date sir."
+BOT_IS_UP_TO_DATE = "**The VAMPBOT** is up-to-date sir."
 NEW_BOT_UP_DATE_FOUND = (
     "new update found for {branch_name}\n"
     "changelog: \n\n{changelog}\n"
-    "updating your W2HBOT ..."
+    "updating your VAMPBOT ..."
 )
-NEW_UP_DATE_FOUND = "New update found for {branch_name}\n" "`updating your W2HBOT...`"
+NEW_UP_DATE_FOUND = "New update found for {branch_name}\n" "`updating your VAMPBOT...`"
 REPO_REMOTE_NAME = "temponame"
 IFFUCI_ACTIVE_BRANCH_NAME = "master"
 DIFF_MARKER = "HEAD..{remote_name}/{branch_name}"
@@ -136,7 +136,7 @@ def generate_change_log(git_repo, diff_marker):
 async def deploy_start(tgbot, message, refspec, remote):
     await message.edit(RESTARTING_APP)
     await message.edit(
-        "Updated your W2HBOT successfully sir!!!\nNow type `.ping` after 5 mins to check if I'm on Sir 😎"
+        "Updated your VAMPBOT successfully sir!!!\nNow type `.ping` after 5 mins to check if I'm on Sir 😎"
     )
     await remote.push(refspec=refspec)
     await tgbot.disconnect()

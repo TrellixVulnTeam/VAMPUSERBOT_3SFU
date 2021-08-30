@@ -7,7 +7,7 @@ from telethon import TelegramClient
 from var import Var
 from userbot.Config import Config
 from userbot.utils import load_module
-from userbot import LOAD_PLUG, LOGS, W2Hversion
+from userbot import LOAD_PLUG, LOGS, vampversion
 from pathlib import Path
 import asyncio
 import telethon.utils
@@ -52,10 +52,10 @@ for name in files:
 
 import userbot._core
 
-print(f"""W2HBOT IS ON!!! W2HBOT VERSION :- {W2Hversion}
+print(f"""VAMPBOT IS ON!!! VAMPBOT VERSION :- {vampversion}
 JOIN OFFICIAL CHAT GROUP AND UPDATES CHANNEL
-OFFICIAL GROUP :- @W2HSupport
-OFFICIAL CHANNEL :- @W2H_Userbot
+OFFICIAL GROUP :- @VAMPBOT_SUPPORT
+OFFICIAL CHANNEL :- @VAMPBOT_OFFICIAL
 DO .alive OR .ping CHECK IF I'M ON!
 IF YOU FACE ANY ISSUE THEN ASK AT CHAT GROUP.""")
 

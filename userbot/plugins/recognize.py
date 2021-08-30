@@ -4,7 +4,7 @@ from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 
 from userbot import CMD_HELP
-from W2HBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
+from VAMPBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 
 
@@ -25,7 +25,7 @@ async def _(event):
     if reply_message.sender.bot:
         await edit_or_reply(event, "Reply to actual users message.")
         return
-    W2H = await edit_or_reply(event, "recognizeing this media")
+    vamp = await edit_or_reply(event, "recognizeing this media")
     async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
@@ -35,15 +35,15 @@ async def _(event):
             response = await response
         except YouBlockedUserError:
             await event.reply("unblock @Rekognition_Bot and try again")
-            await W2H.delete()
+            await vamp.delete()
             return
         if response.text.startswith("See next message."):
             response = conv.wait_event(
                 events.NewMessage(incoming=True, from_users=461083923)
             )
             response = await response
-            W2H = response.message.message
-            await edit_or_reply(event, W2H)
+            vamp = response.message.message
+            await edit_or_reply(event, vamp)
 
         else:
             await edit_or_reply(event, "sorry, I couldnt find it")

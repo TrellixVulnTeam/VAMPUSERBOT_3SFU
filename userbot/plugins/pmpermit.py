@@ -1,4 +1,4 @@
-# pmpermit for W2HBOT.....
+# pmpermit for VAMPBOT.....
 
 import asyncio
 import io
@@ -9,15 +9,15 @@ from telethon import events, functions
 from telethon.tl.functions.users import GetFullUserRequest
 
 from userbot.plugins.sql_helper import pmpermit_sql as pmpermit_sql
-from userbot import ALIVE_NAME, CUSTOM_PMPERMIT, W2H_ID
+from userbot import ALIVE_NAME, CUSTOM_PMPERMIT, VAMP_ID
 from userbot.Config import Config
-from W2HBOT.utils import admin_cmd
+from VAMPBOT.utils import admin_cmd
 from userbot.cmdhelp import CmdHelp
 
 PM_TRUE_FALSE = Config.PM_DATA
 
 PMPERMIT_PIC = os.environ.get("PMPERMIT_PIC", None)
-W2HPIC = (
+vampPIC = (
     PMPERMIT_PIC
     if PMPERMIT_PIC
     else "https://telegra.ph/file/cee753391111580ae8a0c.jpg"
@@ -30,10 +30,10 @@ aura = (
     if CUSTOM_PMPERMIT
     else "**YOU HAVE TRESPASSED TO MY MASTERS INBOX** \n THIS IS ILLEGAL AND REGARDED AS CRIME"
 )
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "W2H User"
-USER_BOT_WARN_ZERO = "**Are Bahinchod spamming kr rha h mere sweet master ke inbox me, Ruk abhi block krta h bhnchooo W2HBOT.**\n__Now GTFO, i'm busy__"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "vamp User"
+USER_BOT_WARN_ZERO = "**Are Bahinchod spamming kr rha h mere sweet master ke inbox me, Ruk abhi block krta h bhnchooo VAMPBOT.**\n__Now GTFO, i'm busy__"
 USER_BOT_NO_WARN = (
-    "Hello, Ruk Ja Bhai Ruk Ja This is **W2HBOT Ultra Private Security Guard H hum Give ur identity before msg my master 😎⚠️**.\n"
+    "Hello, Ruk Ja Bhai Ruk Ja This is **VAMPBOT Ultra Private Security Guard H hum Give ur identity before msg my master 😎⚠️**.\n"
     f"This is my master {DEFAULTUSER}'s Inbox\n"
     f"\n**{aura}**\n\n"
     "To start a valid conversation\n🔱Register Your Request!🔱\nSend `/start` To Register Your Request\nHopefully u will get a reply🔥"
@@ -205,7 +205,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                     out_file,
                     force_document=True,
                     allow_cache=False,
-                    caption="[W2HBOT]Current Approved PMs",
+                    caption="[VAMPBOT]Current Approved PMs",
                     reply_to=event,
                 )
                 await event.delete()
@@ -287,7 +287,7 @@ if Var.PRIVATE_GROUP_ID is not None:
             except:
                 return
         r = await borg.send_file(
-            event.chat_id, W2HPIC, caption=USER_BOT_NO_WARN, force_document=False
+            event.chat_id, vampPIC, caption=USER_BOT_NO_WARN, force_document=False
         )
         PM_WARNS[chat_id] += 1
         if chat_id in PREV_REPLY_MESSAGE:

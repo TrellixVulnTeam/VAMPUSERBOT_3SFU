@@ -1,5 +1,5 @@
 from userbot import *
-from W2HBOT.utils import *
+from VAMPBOT.utils import *
 from userbot.cmdhelp import CmdHelp
 from telethon import events, version
 from telethon.events import NewMessage
@@ -8,7 +8,7 @@ from telethon.tl.types import Channel, Chat, User
 
 #-------------------------------------------------------------------------------
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "W2H User"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "vamp User"
 
 ludosudo = Config.SUDO_USERS
 
@@ -28,13 +28,13 @@ pm_caption ="**ᴡ2ʜʙᴏᴛ Is ᴘʀᴇsᴇɴᴛɪɴɢ ʙᴇsᴛᴇsᴛ ʙᴏ�
 pm_caption += f"**┏━━━━━━━━━━━━━┓**\n"
 pm_caption += f"**┣★ ᴍᴀsᴛᴇʀ : {mention}**\n"
 pm_caption += f"**┣★ ᴛᴇʟᴇᴛʜᴏɴ : `{version.__version__}`**\n"
-pm_caption += f"**┣★ ᴡ2ʜʙᴏᴛ : {W2Hversion}**\n"
+pm_caption += f"**┣★ ᴡ2ʜʙᴏᴛ : {vampversion}**\n"
 pm_caption += f"**┣★ sᴜᴅᴏ       : `{sudou}`**\n"
-pm_caption += f"**┣★ ᴄʜᴀɴɴᴇʟ   : [Join Here](https://t.me/W2H_Userbot)**\n"
-pm_caption += f"**┣★ ᴄʀᴇᴀᴛᴏʀ    : [W2H Here](https://t.me/David99q)**\n"
+pm_caption += f"**┣★ ᴄʜᴀɴɴᴇʟ   : [Join Here](https://t.me/VAMPBOT_OFFICIAL)**\n"
+pm_caption += f"**┣★ ᴄʀᴇᴀᴛᴏʀ    : [vamp Here](https://t.me/David99q)**\n"
 pm_caption += f"**┗━━━━━━━━━━━━━┛**\n"
 
-pm_caption += "    [✨REPO✨](https://github.com/W2HGalaxy-OP/W2HBOT) 🔹 [📜License📜](https://github.com/W2HGalaxy-OP/W2HBOT/blob/master/LICENSE)"
+pm_caption += "    [✨REPO✨](https://github.com/D15H4NT0P/VAMPBOT) 🔹 [📜License📜](https://github.com/D15H4NT0P/VAMPBOT/blob/master/LICENSE)"
 
 
 @bot.on(admin_cmd(outgoing=True, pattern="alive$"))
@@ -52,7 +52,7 @@ async def amireallyalive(alive):
 CmdHelp("alive").add_command(
   'alive', None, 'Check weather the bot is alive or not'
 ).add_command(
-  'W2H', None, 'Check weather the bot is alive or not. In your custom Alive Pic and Alive Msg'
+  'vamp', None, 'Check weather the bot is alive or not. In your custom Alive Pic and Alive Msg'
 ).add_info(
   'Zinda Hai Kya Bro?'
 ).add()

@@ -1,5 +1,5 @@
 # credits to userge
-# ported to W2HBOT by @David99q
+# ported to VAMPBOT by @David99q
 # will be adding more soon
 
 import asyncio
@@ -9,7 +9,7 @@ import urllib
 import requests
 
 from userbot import *
-from W2HBOT.utils import *
+from VAMPBOT.utils import *
 from userbot.cmdhelp import CmdHelp
 
 @bot.on(admin_cmd("boobs$"))

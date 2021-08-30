@@ -6,8 +6,8 @@ from typing import Optional, Tuple
 from PIL import Image, ImageDraw, ImageFont
 import PIL.ImageOps
 
-from W2HBOT.utils import admin_cmd, sudo_cmd
-from userbot import CmdHelp, CMD_HELP, LOGS, bot as W2HBOT
+from VAMPBOT.utils import admin_cmd, sudo_cmd
+from userbot import CmdHelp, CMD_HELP, LOGS, bot as VAMPBOT
 from userbot.helpers.functions import (
     convert_toimage,
     convert_tosticker,
@@ -44,611 +44,611 @@ async def crop(imagefile, endname, x):
     inverted_image.save(endname)
 
 
-@W2HBOT.on(admin_cmd(pattern="invert$", outgoing=True))
-@W2HBOT.on(sudo_cmd(pattern="invert$", allow_sudo=True))
-async def memes(W2H):
-    if W2H.fwd_from:
+@VAMPBOT.on(admin_cmd(pattern="invert$", outgoing=True))
+@VAMPBOT.on(sudo_cmd(pattern="invert$", allow_sudo=True))
+async def memes(vamp):
+    if vamp.fwd_from:
         return
-    reply = await W2H.get_reply_message()
+    reply = await vamp.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(W2H, "`Reply to supported Media...`")
+        await edit_or_reply(vamp, "`Reply to supported Media...`")
         return
-    W2Hid = W2H.reply_to_msg_id
+    vampid = vamp.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    W2H = await edit_or_reply(W2H, "`Fetching media data`")
+    vamp = await edit_or_reply(vamp, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    W2Hsticker = await reply.download_media(file="./temp/")
-    if not W2Hsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(W2Hsticker)
-        await edit_or_reply(W2H, "```Supported Media not found...```")
+    vampsticker = await reply.download_media(file="./temp/")
+    if not vampsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(vampsticker)
+        await edit_or_reply(vamp, "```Supported Media not found...```")
         return
     import base64
 
     aura = None
-    if W2Hsticker.endswith(".tgs"):
-        await W2H.edit(
+    if vampsticker.endswith(".tgs"):
+        await vamp.edit(
             "Analyzing this media 🧐  inverting colors of this animated sticker!"
         )
-        W2Hfile = os.path.join("./temp/", "meme.png")
-        W2Hcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {W2Hsticker} {W2Hfile}"
+        vampfile = os.path.join("./temp/", "meme.png")
+        vampcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {vampsticker} {vampfile}"
         )
-        stdout, stderr = (await runcmd(W2Hcmd))[:2]
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("`Template not found...`")
+        stdout, stderr = (await runcmd(vampcmd))[:2]
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
-    elif W2Hsticker.endswith(".webp"):
-        await W2H.edit(
+    elif vampsticker.endswith(".webp"):
+        await vamp.edit(
             "`Analyzing this media 🧐 inverting colors...`"
         )
-        W2Hfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(W2Hsticker, W2Hfile)
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("`Template not found... `")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(vampsticker, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found... `")
             return
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
-    elif W2Hsticker.endswith((".mp4", ".mov")):
-        await W2H.edit(
+    elif vampsticker.endswith((".mp4", ".mov")):
+        await vamp.edit(
             "Analyzing this media 🧐 inverting colors of this video!"
         )
-        W2Hfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(W2Hsticker, 0, W2Hfile)
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("```Template not found...```")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(vampsticker, 0, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("```Template not found...```")
             return
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
     else:
-        await W2H.edit(
+        await vamp.edit(
             "Analyzing this media 🧐 inverting colors of this image!"
         )
-        meme_file = W2Hsticker
+        meme_file = vampsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await W2H.client(san)
+        await vamp.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
     outputfile = "invert.webp" if aura else "invert.jpg"
     await invert_colors(meme_file, outputfile)
-    await W2H.client.send_file(
-        W2H.chat_id, outputfile, force_document=False, reply_to=W2Hid
+    await vamp.client.send_file(
+        vamp.chat_id, outputfile, force_document=False, reply_to=vampid
     )
-    await W2H.delete()
+    await vamp.delete()
     os.remove(outputfile)
-    for files in (W2Hsticker, meme_file):
+    for files in (vampsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@W2HBOT.on(admin_cmd(outgoing=True, pattern="solarize$"))
-@W2HBOT.on(sudo_cmd(pattern="solarize$", allow_sudo=True))
-async def memes(W2H):
-    if W2H.fwd_from:
+@VAMPBOT.on(admin_cmd(outgoing=True, pattern="solarize$"))
+@VAMPBOT.on(sudo_cmd(pattern="solarize$", allow_sudo=True))
+async def memes(vamp):
+    if vamp.fwd_from:
         return
-    reply = await W2H.get_reply_message()
+    reply = await vamp.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(W2H, "`Reply to supported Media...`")
+        await edit_or_reply(vamp, "`Reply to supported Media...`")
         return
-    W2Hid = W2H.reply_to_msg_id
+    vampid = vamp.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    W2H = await edit_or_reply(W2H, "`Fetching media data`")
+    vamp = await edit_or_reply(vamp, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    W2Hsticker = await reply.download_media(file="./temp/")
-    if not W2Hsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(W2Hsticker)
-        await edit_or_reply(W2H, "```Supported Media not found...```")
+    vampsticker = await reply.download_media(file="./temp/")
+    if not vampsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(vampsticker)
+        await edit_or_reply(vamp, "```Supported Media not found...```")
         return
     import base64
 
     aura = None
-    if W2Hsticker.endswith(".tgs"):
-        await W2H.edit(
+    if vampsticker.endswith(".tgs"):
+        await vamp.edit(
             "Analyzing this media 🧐 solarizeing this animated sticker!"
         )
-        W2Hfile = os.path.join("./temp/", "meme.png")
-        W2Hcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {W2Hsticker} {W2Hfile}"
+        vampfile = os.path.join("./temp/", "meme.png")
+        vampcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {vampsticker} {vampfile}"
         )
-        stdout, stderr = (await runcmd(W2Hcmd))[:2]
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("`Template not found...`")
+        stdout, stderr = (await runcmd(vampcmd))[:2]
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
-    elif W2Hsticker.endswith(".webp"):
-        await W2H.edit(
+    elif vampsticker.endswith(".webp"):
+        await vamp.edit(
             "Analyzing this media 🧐 solarizeing this sticker!"
         )
-        W2Hfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(W2Hsticker, W2Hfile)
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("`Template not found... `")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(vampsticker, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found... `")
             return
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
-    elif W2Hsticker.endswith((".mp4", ".mov")):
-        await W2H.edit(
+    elif vampsticker.endswith((".mp4", ".mov")):
+        await vamp.edit(
             "Analyzing this media 🧐 solarizeing this video!"
         )
-        W2Hfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(W2Hsticker, 0, W2Hfile)
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("```Template not found...```")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(vampsticker, 0, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("```Template not found...```")
             return
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
     else:
-        await W2H.edit(
+        await vamp.edit(
             "Analyzing this media 🧐 solarizeing this image!"
         )
-        meme_file = W2Hsticker
+        meme_file = vampsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await W2H.client(san)
+        await vamp.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
     outputfile = "solarize.webp" if aura else "solarize.jpg"
     await solarize(meme_file, outputfile)
-    await W2H.client.send_file(
-        W2H.chat_id, outputfile, force_document=False, reply_to=W2Hid
+    await vamp.client.send_file(
+        vamp.chat_id, outputfile, force_document=False, reply_to=vampid
     )
-    await W2H.delete()
+    await vamp.delete()
     os.remove(outputfile)
-    for files in (W2Hsticker, meme_file):
+    for files in (vampsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@W2HBOT.on(admin_cmd(outgoing=True, pattern="mirror$"))
-@W2HBOT.on(sudo_cmd(pattern="mirror$", allow_sudo=True))
-async def memes(W2H):
-    if W2H.fwd_from:
+@VAMPBOT.on(admin_cmd(outgoing=True, pattern="mirror$"))
+@VAMPBOT.on(sudo_cmd(pattern="mirror$", allow_sudo=True))
+async def memes(vamp):
+    if vamp.fwd_from:
         return
-    reply = await W2H.get_reply_message()
+    reply = await vamp.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(W2H, "`Reply to supported Media...`")
+        await edit_or_reply(vamp, "`Reply to supported Media...`")
         return
-    W2Hid = W2H.reply_to_msg_id
+    vampid = vamp.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    W2H = await edit_or_reply(W2H, "`Fetching media data`")
+    vamp = await edit_or_reply(vamp, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    W2Hsticker = await reply.download_media(file="./temp/")
-    if not W2Hsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(W2Hsticker)
-        await edit_or_reply(W2H, "```Supported Media not found...```")
+    vampsticker = await reply.download_media(file="./temp/")
+    if not vampsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(vampsticker)
+        await edit_or_reply(vamp, "```Supported Media not found...```")
         return
     import base64
 
     aura = None
-    if W2Hsticker.endswith(".tgs"):
-        await W2H.edit(
+    if vampsticker.endswith(".tgs"):
+        await vamp.edit(
             "Analyzing this media 🧐 converting to mirror image of this animated sticker!"
         )
-        W2Hfile = os.path.join("./temp/", "meme.png")
-        W2Hcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {W2Hsticker} {W2Hfile}"
+        vampfile = os.path.join("./temp/", "meme.png")
+        vampcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {vampsticker} {vampfile}"
         )
-        stdout, stderr = (await runcmd(W2Hcmd))[:2]
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("`Template not found...`")
+        stdout, stderr = (await runcmd(vampcmd))[:2]
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
-    elif W2Hsticker.endswith(".webp"):
-        await W2H.edit(
+    elif vampsticker.endswith(".webp"):
+        await vamp.edit(
             "Analyzing this media 🧐 converting to mirror image of this sticker!"
         )
-        W2Hfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(W2Hsticker, W2Hfile)
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("`Template not found... `")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(vampsticker, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found... `")
             return
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
-    elif W2Hsticker.endswith((".mp4", ".mov")):
-        await W2H.edit(
+    elif vampsticker.endswith((".mp4", ".mov")):
+        await vamp.edit(
             "Analyzing this media 🧐 converting to mirror image of this video!"
         )
-        W2Hfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(W2Hsticker, 0, W2Hfile)
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("```Template not found...```")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(vampsticker, 0, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("```Template not found...```")
             return
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
     else:
-        await W2H.edit(
+        await vamp.edit(
             "Analyzing this media 🧐 converting to mirror image of this image!"
         )
-        meme_file = W2Hsticker
+        meme_file = vampsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await W2H.client(san)
+        await vamp.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
     outputfile = "mirror_file.webp" if aura else "mirror_file.jpg"
     await mirror_file(meme_file, outputfile)
-    await W2H.client.send_file(
-        W2H.chat_id, outputfile, force_document=False, reply_to=W2Hid
+    await vamp.client.send_file(
+        vamp.chat_id, outputfile, force_document=False, reply_to=vampid
     )
-    await W2H.delete()
+    await vamp.delete()
     os.remove(outputfile)
-    for files in (W2Hsticker, meme_file):
+    for files in (vampsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@W2HBOT.on(admin_cmd(outgoing=True, pattern="flip$"))
-@W2HBOT.on(sudo_cmd(pattern="flip$", allow_sudo=True))
-async def memes(W2H):
-    if W2H.fwd_from:
+@VAMPBOT.on(admin_cmd(outgoing=True, pattern="flip$"))
+@VAMPBOT.on(sudo_cmd(pattern="flip$", allow_sudo=True))
+async def memes(vamp):
+    if vamp.fwd_from:
         return
-    reply = await W2H.get_reply_message()
+    reply = await vamp.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(W2H, "`Reply to supported Media...`")
+        await edit_or_reply(vamp, "`Reply to supported Media...`")
         return
-    W2Hid = W2H.reply_to_msg_id
+    vampid = vamp.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    W2H = await edit_or_reply(W2H, "`Fetching media data`")
+    vamp = await edit_or_reply(vamp, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    W2Hsticker = await reply.download_media(file="./temp/")
-    if not W2Hsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(W2Hsticker)
-        await edit_or_reply(W2H, "```Supported Media not found...```")
+    vampsticker = await reply.download_media(file="./temp/")
+    if not vampsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(vampsticker)
+        await edit_or_reply(vamp, "```Supported Media not found...```")
         return
     import base64
 
     aura = None
-    if W2Hsticker.endswith(".tgs"):
-        await W2H.edit(
+    if vampsticker.endswith(".tgs"):
+        await vamp.edit(
             "Analyzing this media 🧐 fliping this animated sticker!"
         )
-        W2Hfile = os.path.join("./temp/", "meme.png")
-        W2Hcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {W2Hsticker} {W2Hfile}"
+        vampfile = os.path.join("./temp/", "meme.png")
+        vampcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {vampsticker} {vampfile}"
         )
-        stdout, stderr = (await runcmd(W2Hcmd))[:2]
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("`Template not found...`")
+        stdout, stderr = (await runcmd(vampcmd))[:2]
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
-    elif W2Hsticker.endswith(".webp"):
-        await W2H.edit(
+    elif vampsticker.endswith(".webp"):
+        await vamp.edit(
             "Analyzing this media 🧐 fliping this sticker!"
         )
-        W2Hfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(W2Hsticker, W2Hfile)
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("`Template not found... `")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(vampsticker, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found... `")
             return
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
-    elif W2Hsticker.endswith((".mp4", ".mov")):
-        await W2H.edit(
+    elif vampsticker.endswith((".mp4", ".mov")):
+        await vamp.edit(
             "Analyzing this media 🧐 fliping this video!"
         )
-        W2Hfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(W2Hsticker, 0, W2Hfile)
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("```Template not found...```")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(vampsticker, 0, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("```Template not found...```")
             return
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
     else:
-        await W2H.edit(
+        await vamp.edit(
             "Analyzing this media 🧐 fliping this image!"
         )
-        meme_file = W2Hsticker
+        meme_file = vampsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await W2H.client(san)
+        await vamp.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
     outputfile = "flip_image.webp" if aura else "flip_image.jpg"
     await flip_image(meme_file, outputfile)
-    await W2H.client.send_file(
-        W2H.chat_id, outputfile, force_document=False, reply_to=W2Hid
+    await vamp.client.send_file(
+        vamp.chat_id, outputfile, force_document=False, reply_to=vampid
     )
-    await W2H.delete()
+    await vamp.delete()
     os.remove(outputfile)
-    for files in (W2Hsticker, meme_file):
+    for files in (vampsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@W2HBOT.on(admin_cmd(outgoing=True, pattern="gray$"))
-@W2HBOT.on(sudo_cmd(pattern="gray$", allow_sudo=True))
-async def memes(W2H):
-    if W2H.fwd_from:
+@VAMPBOT.on(admin_cmd(outgoing=True, pattern="gray$"))
+@VAMPBOT.on(sudo_cmd(pattern="gray$", allow_sudo=True))
+async def memes(vamp):
+    if vamp.fwd_from:
         return
-    reply = await W2H.get_reply_message()
+    reply = await vamp.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(W2H, "`Reply to supported Media...`")
+        await edit_or_reply(vamp, "`Reply to supported Media...`")
         return
-    W2Hid = W2H.reply_to_msg_id
+    vampid = vamp.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    W2H = await edit_or_reply(W2H, "`Fetching media data`")
+    vamp = await edit_or_reply(vamp, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    W2Hsticker = await reply.download_media(file="./temp/")
-    if not W2Hsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(W2Hsticker)
-        await edit_or_reply(W2H, "```Supported Media not found...```")
+    vampsticker = await reply.download_media(file="./temp/")
+    if not vampsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(vampsticker)
+        await edit_or_reply(vamp, "```Supported Media not found...```")
         return
     import base64
 
     aura = None
-    if W2Hsticker.endswith(".tgs"):
-        await W2H.edit(
+    if vampsticker.endswith(".tgs"):
+        await vamp.edit(
             "Analyzing this media 🧐 changing to black-and-white this animated sticker!"
         )
-        W2Hfile = os.path.join("./temp/", "meme.png")
-        W2Hcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {W2Hsticker} {W2Hfile}"
+        vampfile = os.path.join("./temp/", "meme.png")
+        vampcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {vampsticker} {vampfile}"
         )
-        stdout, stderr = (await runcmd(W2Hcmd))[:2]
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("`Template not found...`")
+        stdout, stderr = (await runcmd(vampcmd))[:2]
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
-    elif W2Hsticker.endswith(".webp"):
-        await W2H.edit(
+    elif vampsticker.endswith(".webp"):
+        await vamp.edit(
             "Analyzing this media 🧐 changing to black-and-white this sticker!"
         )
-        W2Hfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(W2Hsticker, W2Hfile)
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("`Template not found... `")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(vampsticker, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found... `")
             return
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
-    elif W2Hsticker.endswith((".mp4", ".mov")):
-        await W2H.edit(
+    elif vampsticker.endswith((".mp4", ".mov")):
+        await vamp.edit(
             "Analyzing this media 🧐 changing to black-and-white this video!"
         )
-        W2Hfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(W2Hsticker, 0, W2Hfile)
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("```Template not found...```")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(vampsticker, 0, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("```Template not found...```")
             return
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
     else:
-        await W2H.edit(
+        await vamp.edit(
             "Analyzing this media 🧐 changing to black-and-white this image!"
         )
-        meme_file = W2Hsticker
+        meme_file = vampsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await W2H.client(san)
+        await vamp.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
     outputfile = "grayscale.webp" if aura else "grayscale.jpg"
     await grayscale(meme_file, outputfile)
-    await W2H.client.send_file(
-        W2H.chat_id, outputfile, force_document=False, reply_to=W2Hid
+    await vamp.client.send_file(
+        vamp.chat_id, outputfile, force_document=False, reply_to=vampid
     )
-    await W2H.delete()
+    await vamp.delete()
     os.remove(outputfile)
-    for files in (W2Hsticker, meme_file):
+    for files in (vampsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@W2HBOT.on(admin_cmd(outgoing=True, pattern="zoom ?(.*)"))
-@W2HBOT.on(sudo_cmd(pattern="zoom ?(.*)", allow_sudo=True))
-async def memes(W2H):
-    if W2H.fwd_from:
+@VAMPBOT.on(admin_cmd(outgoing=True, pattern="zoom ?(.*)"))
+@VAMPBOT.on(sudo_cmd(pattern="zoom ?(.*)", allow_sudo=True))
+async def memes(vamp):
+    if vamp.fwd_from:
         return
-    reply = await W2H.get_reply_message()
+    reply = await vamp.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(W2H, "`Reply to supported Media...`")
+        await edit_or_reply(vamp, "`Reply to supported Media...`")
         return
-    W2Hinput = W2H.pattern_match.group(1)
-    W2Hinput = 50 if not W2Hinput else int(W2Hinput)
-    W2Hid = W2H.reply_to_msg_id
+    vampinput = vamp.pattern_match.group(1)
+    vampinput = 50 if not vampinput else int(vampinput)
+    vampid = vamp.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    W2H = await edit_or_reply(W2H, "`Fetching media data`")
+    vamp = await edit_or_reply(vamp, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    W2Hsticker = await reply.download_media(file="./temp/")
-    if not W2Hsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(W2Hsticker)
-        await edit_or_reply(W2H, "```Supported Media not found...```")
+    vampsticker = await reply.download_media(file="./temp/")
+    if not vampsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(vampsticker)
+        await edit_or_reply(vamp, "```Supported Media not found...```")
         return
     import base64
 
     aura = None
-    if W2Hsticker.endswith(".tgs"):
-        await W2H.edit(
+    if vampsticker.endswith(".tgs"):
+        await vamp.edit(
             "Analyzing this media 🧐 zooming this animated sticker!"
         )
-        W2Hfile = os.path.join("./temp/", "meme.png")
-        W2Hcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {W2Hsticker} {W2Hfile}"
+        vampfile = os.path.join("./temp/", "meme.png")
+        vampcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {vampsticker} {vampfile}"
         )
-        stdout, stderr = (await runcmd(W2Hcmd))[:2]
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("`Template not found...`")
+        stdout, stderr = (await runcmd(vampcmd))[:2]
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
-    elif W2Hsticker.endswith(".webp"):
-        await W2H.edit(
+    elif vampsticker.endswith(".webp"):
+        await vamp.edit(
             "Analyzing this media 🧐 zooming this sticker!"
         )
-        W2Hfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(W2Hsticker, W2Hfile)
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("`Template not found... `")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(vampsticker, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found... `")
             return
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
-    elif W2Hsticker.endswith((".mp4", ".mov")):
-        await W2H.edit(
+    elif vampsticker.endswith((".mp4", ".mov")):
+        await vamp.edit(
             "Analyzing this media 🧐 zooming this video!"
         )
-        W2Hfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(W2Hsticker, 0, W2Hfile)
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("```Template not found...```")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(vampsticker, 0, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("```Template not found...```")
             return
-        meme_file = W2Hfile
+        meme_file = vampfile
     else:
-        await W2H.edit(
+        await vamp.edit(
             "Analyzing this media 🧐 zooming this image!"
         )
-        meme_file = W2Hsticker
+        meme_file = vampsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await W2H.client(san)
+        await vamp.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
     outputfile = "grayscale.webp" if aura else "grayscale.jpg"
     try:
-        await crop(meme_file, outputfile, W2Hinput)
+        await crop(meme_file, outputfile, vampinput)
     except Exception as e:
-        return await W2H.edit(f"`{e}`")
+        return await vamp.edit(f"`{e}`")
     try:
-        await W2H.client.send_file(
-            W2H.chat_id, outputfile, force_document=False, reply_to=W2Hid
+        await vamp.client.send_file(
+            vamp.chat_id, outputfile, force_document=False, reply_to=vampid
         )
     except Exception as e:
-        return await W2H.edit(f"`{e}`")
-    await W2H.delete()
+        return await vamp.edit(f"`{e}`")
+    await vamp.delete()
     os.remove(outputfile)
-    for files in (W2Hsticker, meme_file):
+    for files in (vampsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@W2HBOT.on(admin_cmd(outgoing=True, pattern="frame ?(.*)"))
-@W2HBOT.on(sudo_cmd(pattern="frame ?(.*)", allow_sudo=True))
-async def memes(W2H):
-    if W2H.fwd_from:
+@VAMPBOT.on(admin_cmd(outgoing=True, pattern="frame ?(.*)"))
+@VAMPBOT.on(sudo_cmd(pattern="frame ?(.*)", allow_sudo=True))
+async def memes(vamp):
+    if vamp.fwd_from:
         return
-    reply = await W2H.get_reply_message()
+    reply = await vamp.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(W2H, "`Reply to supported Media...`")
+        await edit_or_reply(vamp, "`Reply to supported Media...`")
         return
-    W2Hinput = W2H.pattern_match.group(1)
-    if not W2Hinput:
-        W2Hinput = 50
-    if ";" in str(W2Hinput):
-        W2Hinput, colr = W2Hinput.split(";", 1)
+    vampinput = vamp.pattern_match.group(1)
+    if not vampinput:
+        vampinput = 50
+    if ";" in str(vampinput):
+        vampinput, colr = vampinput.split(";", 1)
     else:
         colr = 0
-    W2Hinput = int(W2Hinput)
+    vampinput = int(vampinput)
     colr = int(colr)
-    W2Hid = W2H.reply_to_msg_id
+    vampid = vamp.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    W2H = await edit_or_reply(W2H, "`Fetching media data`")
+    vamp = await edit_or_reply(vamp, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    W2Hsticker = await reply.download_media(file="./temp/")
-    if not W2Hsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(W2Hsticker)
-        await edit_or_reply(W2H, "```Supported Media not found...```")
+    vampsticker = await reply.download_media(file="./temp/")
+    if not vampsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(vampsticker)
+        await edit_or_reply(vamp, "```Supported Media not found...```")
         return
     import base64
 
     aura = None
-    if W2Hsticker.endswith(".tgs"):
-        await W2H.edit(
+    if vampsticker.endswith(".tgs"):
+        await vamp.edit(
             "Analyzing this media 🧐 framing this animated sticker!"
         )
-        W2Hfile = os.path.join("./temp/", "meme.png")
-        W2Hcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {W2Hsticker} {W2Hfile}"
+        vampfile = os.path.join("./temp/", "meme.png")
+        vampcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {vampsticker} {vampfile}"
         )
-        stdout, stderr = (await runcmd(W2Hcmd))[:2]
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("`Template not found...`")
+        stdout, stderr = (await runcmd(vampcmd))[:2]
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
-    elif W2Hsticker.endswith(".webp"):
-        await W2H.edit(
+    elif vampsticker.endswith(".webp"):
+        await vamp.edit(
             "Analyzing this media 🧐 framing this sticker!"
         )
-        W2Hfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(W2Hsticker, W2Hfile)
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("`Template not found... `")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(vampsticker, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found... `")
             return
-        meme_file = W2Hfile
+        meme_file = vampfile
         aura = True
-    elif W2Hsticker.endswith((".mp4", ".mov")):
-        await W2H.edit(
+    elif vampsticker.endswith((".mp4", ".mov")):
+        await vamp.edit(
             "Analyzing this media 🧐 framing this video!"
         )
-        W2Hfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(W2Hsticker, 0, W2Hfile)
-        if not os.path.lexists(W2Hfile):
-            await W2H.edit("```Template not found...```")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(vampsticker, 0, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("```Template not found...```")
             return
-        meme_file = W2Hfile
+        meme_file = vampfile
     else:
-        await W2H.edit(
+        await vamp.edit(
             "Analyzing this media 🧐 framing this image!"
         )
-        meme_file = W2Hsticker
+        meme_file = vampsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await W2H.client(san)
+        await vamp.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
     outputfile = "framed.webp" if aura else "framed.jpg"
     try:
-        await add_frame(meme_file, outputfile, W2Hinput, colr)
+        await add_frame(meme_file, outputfile, vampinput, colr)
     except Exception as e:
-        return await W2H.edit(f"`{e}`")
+        return await vamp.edit(f"`{e}`")
     try:
-        await W2H.client.send_file(
-            W2H.chat_id, outputfile, force_document=False, reply_to=W2Hid
+        await vamp.client.send_file(
+            vamp.chat_id, outputfile, force_document=False, reply_to=vampid
         )
     except Exception as e:
-        return await W2H.edit(f"`{e}`")
-    await W2H.delete()
+        return await vamp.edit(f"`{e}`")
+    await vamp.delete()
     os.remove(outputfile)
-    for files in (W2Hsticker, meme_file):
+    for files in (vampsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 

@@ -10,7 +10,7 @@ from telethon.errors import PhotoInvalidDimensionsError
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.messages import SendMediaRequest
 
-from W2HBOT.utils import admin_cmd, edit_or_reply, progress, sudo_cmd
+from VAMPBOT.utils import admin_cmd, edit_or_reply, progress, sudo_cmd
 from userbot import CMD_HELP
 from userbot.helpers.functions import unzip
 from userbot.cmdhelp import CmdHelp
@@ -21,13 +21,13 @@ if not os.path.isdir("./temp"):
 
 @bot.on(admin_cmd(pattern="stoi$"))
 @bot.on(sudo_cmd(pattern="stoi$", allow_sudo=True))
-async def _(W2H):
-    if W2H.fwd_from:
+async def _(vamp):
+    if vamp.fwd_from:
         return
-    reply_to_id = W2H.message.id
-    if W2H.reply_to_msg_id:
-        reply_to_id = W2H.reply_to_msg_id
-    event = await edit_or_reply(W2H, "Converting.....")
+    reply_to_id = vamp.message.id
+    if vamp.reply_to_msg_id:
+        reply_to_id = vamp.reply_to_msg_id
+    event = await edit_or_reply(vamp, "Converting.....")
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
@@ -36,11 +36,11 @@ async def _(W2H):
         reply_message = await event.get_reply_message()
         to_download_directory = Config.TMP_DOWNLOAD_DIRECTORY
         downloaded_file_name = os.path.join(to_download_directory, file_name)
-        downloaded_file_name = await W2H.client.download_media(
+        downloaded_file_name = await vamp.client.download_media(
             reply_message, downloaded_file_name
         )
         if os.path.exists(downloaded_file_name):
-            caat = await W2H.client.send_file(
+            caat = await vamp.client.send_file(
                 event.chat_id,
                 downloaded_file_name,
                 force_document=False,
@@ -56,13 +56,13 @@ async def _(W2H):
 
 @bot.on(admin_cmd(pattern="itos$"))
 @bot.on(sudo_cmd(pattern="itos$", allow_sudo=True))
-async def _(W2H):
-    if W2H.fwd_from:
+async def _(vamp):
+    if vamp.fwd_from:
         return
-    reply_to_id = W2H.message.id
-    if W2H.reply_to_msg_id:
-        reply_to_id = W2H.reply_to_msg_id
-    event = await edit_or_reply(W2H, "Converting.....")
+    reply_to_id = vamp.message.id
+    if vamp.reply_to_msg_id:
+        reply_to_id = vamp.reply_to_msg_id
+    event = await edit_or_reply(vamp, "Converting.....")
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
@@ -71,11 +71,11 @@ async def _(W2H):
         reply_message = await event.get_reply_message()
         to_download_directory = Config.TMP_DOWNLOAD_DIRECTORY
         downloaded_file_name = os.path.join(to_download_directory, file_name)
-        downloaded_file_name = await W2H.client.download_media(
+        downloaded_file_name = await vamp.client.download_media(
             reply_message, downloaded_file_name
         )
         if os.path.exists(downloaded_file_name):
-            caat = await W2H.client.send_file(
+            caat = await vamp.client.send_file(
                 event.chat_id,
                 downloaded_file_name,
                 force_document=False,
@@ -157,31 +157,31 @@ async def on_file_to_photo(event):
 async def _(event):
     if event.fwd_from:
         return
-    W2Hreply = await event.get_reply_message()
-    if not W2Hreply or not W2Hreply.media or not W2Hreply.media.document:
+    vampreply = await event.get_reply_message()
+    if not vampreply or not vampreply.media or not vampreply.media.document:
         return await edit_or_reply(event, "`Stupid!, This is not animated sticker.`")
-    if W2Hreply.media.document.mime_type != "application/x-tgsticker":
+    if vampreply.media.document.mime_type != "application/x-tgsticker":
         return await edit_or_reply(event, "`Stupid!, This is not animated sticker.`")
     reply_to_id = event.message
     if event.reply_to_msg_id:
         reply_to_id = await event.get_reply_message()
     chat = "@tgstogifbot"
-    W2Hevent = await edit_or_reply(event, "`Converting to gif ...`")
+    vampevent = await edit_or_reply(event, "`Converting to gif ...`")
     async with event.client.conversation(chat) as conv:
         try:
             await silently_send_message(conv, "/start")
-            await event.client.send_file(chat, W2Hreply.media)
+            await event.client.send_file(chat, vampreply.media)
             response = await conv.get_response()
             await event.client.send_read_acknowledge(conv.chat_id)
             if response.text.startswith("Send me an animated sticker!"):
-                return await W2Hevent.edit("`This file is not supported`")
-            W2Hresponse = response if response.media else await conv.get_response()
+                return await vampevent.edit("`This file is not supported`")
+            vampresponse = response if response.media else await conv.get_response()
             await event.client.send_read_acknowledge(conv.chat_id)
-            W2Hfile = Path(await event.client.download_media(W2Hresponse, "./temp/"))
-            W2Hgif = Path(await unzip(W2Hfile))
+            vampfile = Path(await event.client.download_media(vampresponse, "./temp/"))
+            vampgif = Path(await unzip(vampfile))
             aura = await event.client.send_file(
                 event.chat_id,
-                W2Hgif,
+                vampgif,
                 support_streaming=True,
                 force_document=False,
                 reply_to=reply_to_id,
@@ -196,12 +196,12 @@ async def _(event):
                     unsave=True,
                 )
             )
-            await W2Hevent.delete()
-            for files in (W2Hgif, W2Hfile):
+            await vampevent.delete()
+            for files in (vampgif, vampfile):
                 if files and os.path.exists(files):
                     os.remove(files)
         except YouBlockedUserError:
-            await W2Hevent.edit("Unblock @tgstogifbot")
+            await vampevent.edit("Unblock @tgstogifbot")
             return
 
 

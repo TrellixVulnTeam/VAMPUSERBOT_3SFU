@@ -1,7 +1,7 @@
 # credits: SNAPDRAGON (@s_n_a_p_s)
 import asyncio
 import time
-from W2HBOT.utils import admin_cmd
+from VAMPBOT.utils import admin_cmd
 from userbot.cmdhelp import CmdHelp
 
 

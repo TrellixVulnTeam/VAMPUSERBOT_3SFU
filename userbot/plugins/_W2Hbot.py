@@ -1,13 +1,13 @@
-"""W2HBOT Help Command"""
+"""VAMPBOT Help Command"""
 
 from userbot import *
 from userbot import CMD_HELP
-from W2HBOT.utils import *
+from VAMPBOT.utils import *
 
 
 @bot.on(admin_cmd(pattern="plinfo(?: |$)(.*)", outgoing=True))
 @bot.on(sudo_cmd(pattern="plinfo(?: |$)(.*)", allow_sudo=True))
-async def W2HBOTt(event):
+async def VAMPBOTt(event):
     if event.fwd_from:
         return
     """ .plinfo cmd """

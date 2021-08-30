@@ -2,7 +2,7 @@
 """
 import asyncio
 
-from W2HBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
+from VAMPBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 from userbot.plugins.sql_helper.mute_sql import is_muted, mute, unmute
 

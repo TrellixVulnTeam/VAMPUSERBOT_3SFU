@@ -1,7 +1,7 @@
 # Made By @David99q. Keep Credit if you are gonna copy paste it. LOL NOOBS....
 # Happy New Year plugin by David99q for Hellbot
 # Kangers keep credits...
-# Now in W2HBOT
+# Now in VAMPBOT
 
 import random
 # credits to aura, john snow
@@ -11,11 +11,11 @@ import asyncio
 # credits to aura, john snow
 from userbot import CMD_HELP, ALIVE_NAME
 # credits to aura, john snow
-from W2HBOT.utils import admin_cmd, edit_or_reply, sudo_cmd
+from VAMPBOT.utils import admin_cmd, edit_or_reply, sudo_cmd
 # credits to aura, john snow
 from userbot.cmdhelp import CmdHelp
 # credits to aura, john snow
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "W2H User"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "vamp User"
 # credits to aura, john snow
 aura = bot.uid
 # credits to aura, john snow

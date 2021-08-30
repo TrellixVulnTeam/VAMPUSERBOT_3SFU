@@ -8,7 +8,7 @@ from datetime import datetime
 
 from selenium import webdriver
 
-from W2HBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
+from VAMPBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 
 @bot.on(admin_cmd(pattern="screenshot (.*)", outgoing=True))
@@ -53,7 +53,7 @@ async def _(event):
         if event.reply_to_msg_id:
             message_id = event.reply_to_msg_id
         with io.BytesIO(im_png) as out_file:
-            out_file.name = "W2HBOT.ScreenCapture.PNG"
+            out_file.name = "VAMPBOT.ScreenCapture.PNG"
             await borg.send_file(
                 event.chat_id,
                 out_file,
@@ -70,5 +70,5 @@ async def _(event):
         await edit_or_reply(event, traceback.format_exc())
 
 CmdHelp("screenshot").add_command(
-  "screenshot", "<link>", "Gives out the web screenshot of given link via Google Crome Bin in .png format", ".screenshot https://github.com/W2HGalaxy-OP/W2HBOT"
+  "screenshot", "<link>", "Gives out the web screenshot of given link via Google Crome Bin in .png format", ".screenshot https://github.com/D15H4NT0P/VAMPBOT"
 ).add()

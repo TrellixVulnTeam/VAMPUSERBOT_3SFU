@@ -5,7 +5,7 @@ import asyncio
 
 from telethon import functions
 
-from W2HBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
+from VAMPBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 
 
@@ -26,7 +26,7 @@ async def _(event):
     result = await borg(functions.help.GetConfigRequest())  # pylint:disable=E0602
     result = result.stringify()
     logger.info(result)  # pylint:disable=E0602
-    await event.edit("""Telethon UserBot powered by @W2H_Userbot""")
+    await event.edit("""Telethon UserBot powered by @VAMPBOT_OFFICIAL""")
 
 CmdHelp("bot").add_command(
   "dc", None, "Gets the DataCenter Number"

@@ -1,7 +1,7 @@
 <h1 align="center">⚡ ˜”*°• W 2 H U S E R B O T •°*”˜ ⚡</h1>
 
 
-[![W2H logo](https://telegra.ph/file/cee753391111580ae8a0c.jpg)](https://t.me/W2HSupport)
+[![vamp logo](https://telegra.ph/file/cee753391111580ae8a0c.jpg)](https://t.me/VAMPBOT_SUPPORT)
 
 
 <h2 align="center">The owner would not be responsible for any kind of bans due to the bot.</h2>
@@ -19,9 +19,9 @@
     - Install git package
            `pkg install git`
     - Clone this repository.
-           `git clone https://github.com/W2HGalaxy-OP/W2HBOT.git`
+           `git clone https://github.com/D15H4NT0P/VAMPBOT.git`
     - Then Do
-           `cd W2HBOT`
+           `cd VAMPBOT`
     - Run String Generator By
            `bash string.sh`
     - Then Fill The Required Details.
@@ -30,7 +30,7 @@
 - Repl Run
 
 
-[![GenerateString](https://img.shields.io/badge/repl.it-generateString-yellowgreen)](https://replit.com/@GalaxyOp/W2HBOT#main.py) 
+[![GenerateString](https://img.shields.io/badge/repl.it-generateString-yellowgreen)](https://replit.com/@GalaxyOp/VAMPBOT#main.py) 
 
     - Click On Generate string
     - Then Click On Green Play Button.
@@ -53,7 +53,7 @@
 
 <h4> DEPLOY TO HEROKU </h4>
 
-<a href="https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2FW2HGalaxy-OP%2FW2HBOT&template=https%3A%2F%2Fgithub.com%2FW2HGalaxy-OP%2FW2HBOT" rel="nofollow" style="background-color: initial; box-sizing: border-box; color: #0366d6; text-decoration-line: none;"><img alt="Deploy" data-canonical-src="https://www.herokucdn.com/deploy/button.svg" src="https://camo.githubusercontent.com/83b0e95b38892b49184e07ad572c94c8038323fb/68747470733a2f2f7777772e6865726f6b7563646e2e636f6d2f6465706c6f792f627574746f6e2e737667" style="border-style: none; box-sizing: initial; max-width: 100%;" /></a></div>
+<a href="https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2FD15H4NT0P%2FVAMPBOT&template=https%3A%2F%2Fgithub.com%2FD15H4NT0P%2FVAMPBOT" rel="nofollow" style="background-color: initial; box-sizing: border-box; color: #0366d6; text-decoration-line: none;"><img alt="Deploy" data-canonical-src="https://www.herokucdn.com/deploy/button.svg" src="https://camo.githubusercontent.com/83b0e95b38892b49184e07ad572c94c8038323fb/68747470733a2f2f7777772e6865726f6b7563646e2e636f6d2f6465706c6f792f627574746f6e2e737667" style="border-style: none; box-sizing: initial; max-width: 100%;" /></a></div>
 </a>
 
 
@@ -64,7 +64,7 @@
     - `APP_ID`:   You can get this value from [here](https://my.telegram.org)
     - `API_HASH`:   You can get this value from [here](https://my.telegram.org)
     - `ENV`:   `ANYTHING`
-    - `STRING_SESSION`:   You can get this value from running `python3 string_session.py` in termux after cloning this repo. Or just using [repl run](https://repl.it/@itzgauravv/W2HBOT#main.py)
+    - `STRING_SESSION`:   You can get this value from running `python3 string_session.py` in termux after cloning this repo. Or just using [repl run](https://repl.it/@itzgauravv/VAMPBOT#main.py)
     - `LOG_GROUP`:   Make a Channel Or Group and get it's id.
     - `DATABASE_URL`:   Make a database on elephant sql and paste the url.
     - `DB_URI`:   Same as `DATABASE_URL`
@@ -79,14 +79,14 @@
 
 ```
 Get help regarding setting up 
-your W2HBOT in our official 
+your VAMPBOT in our official 
 support Group and get updates
 notifications in Update Channel.
 ```
 
-<a href="https://t.me/W2H_Userbot"><img src="https://img.shields.io/badge/Join-Support%20Channel-red.svg?style=for-the-badge&logo=Telegram"></a>
+<a href="https://t.me/VAMPBOT_OFFICIAL"><img src="https://img.shields.io/badge/Join-Support%20Channel-red.svg?style=for-the-badge&logo=Telegram"></a>
 
-<a href="https://t.me/W2HSupport"><img src="https://img.shields.io/badge/Join-Support%20Group-red.svg?style=for-the-badge&logo=Telegram"></a>
+<a href="https://t.me/VAMPBOT_SUPPORT"><img src="https://img.shields.io/badge/Join-Support%20Group-red.svg?style=for-the-badge&logo=Telegram"></a>
 
 [![Contact Me](https://img.shields.io/badge/Telegram-Contact%20Me-informational)](https://t.me/David99q)
 
@@ -97,9 +97,9 @@ notifications in Update Channel.
 
 ![](https://www.gnu.org/graphics/gplv3-or-later.png)
 
-Copyright (C) 2021 W2HGalaxy-OP
+Copyright (C) 2021 D15H4NT0P
 
-Poject [W2HBOT](https://github.com/W2HGalaxy-OP/W2HBOT) is free software: you can redistribute it and/or modify
+Poject [VAMPBOT](https://github.com/D15H4NT0P/VAMPBOT) is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
@@ -117,7 +117,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 <details>
   <summary> <h4>• Credits 🏅 •</h4> </summary>
 
-• [Galaxy-OP](https://github.com/W2HGalaxy-OP):DEV
+• [Galaxy-OP](https://github.com/D15H4NT0P):DEV
 
 • [iisgaurav](https://github.com/iisgaurav):DEV
 

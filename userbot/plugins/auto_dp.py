@@ -19,7 +19,7 @@ import requests
 from telethon.tl import functions
 
 from userbot import CMD_HELP
-from W2HBOT.utils import admin_cmd
+from VAMPBOT.utils import admin_cmd
 from userbot.cmdhelp import CmdHelp
 
 COLLECTION_STRING1 = [

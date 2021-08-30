@@ -1,7 +1,7 @@
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 
-from W2HBOT.utils import admin_cmd, edit_or_reply, sudo_cmd
+from VAMPBOT.utils import admin_cmd, edit_or_reply, sudo_cmd
 from userbot.cmdhelp import CmdHelp
 
 @bot.on(admin_cmd("circle ?(.*)"))

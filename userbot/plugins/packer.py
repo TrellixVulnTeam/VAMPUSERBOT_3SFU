@@ -3,12 +3,12 @@ import os
 import asyncio
 
 from userbot import CmdHelp
-from W2HBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
-from userbot import bot as W2HBOT
+from VAMPBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
+from userbot import bot as VAMPBOT
 
 
-@W2HBOT.on(admin_cmd(pattern=r"unpack", outgoing=True))
-@W2HBOT.on(sudo_cmd(pattern=r"unpack"))
+@VAMPBOT.on(admin_cmd(pattern=r"unpack", outgoing=True))
+@VAMPBOT.on(sudo_cmd(pattern=r"unpack"))
 async def _(event):
     b = await event.client.download_media(await event.get_reply_message())
     a = open(b, "r")
@@ -23,8 +23,8 @@ async def _(event):
     os.remove(b)
 
 
-@W2HBOT.on(admin_cmd(pattern="repack ?(.*)", outgoing=True))
-@W2HBOT.on(sudo_cmd(pattern="repack ?(.*)", allow_sudo=True))
+@VAMPBOT.on(admin_cmd(pattern="repack ?(.*)", outgoing=True))
+@VAMPBOT.on(sudo_cmd(pattern="repack ?(.*)", allow_sudo=True))
 async def _(event):
     a = await event.get_reply_message()
     input_str = event.pattern_match.group(1)

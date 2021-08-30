@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String
 
-from W2HBOT.plugins.sql_helper import BASE, SESSION
+from VAMPBOT.plugins.sql_helper import BASE, SESSION
 
 
 class Moidata(BASE):

@@ -16,7 +16,7 @@ from pytz import country_timezones as c_tz
 from pytz import timezone as tz
 
 from userbot import CMD_HELP
-from W2HBOT.utils import admin_cmd, edit_or_reply, errors_handler, sudo_cmd
+from VAMPBOT.utils import admin_cmd, edit_or_reply, errors_handler, sudo_cmd
 from userbot.cmdhelp import CmdHelp
 
 logging.basicConfig(

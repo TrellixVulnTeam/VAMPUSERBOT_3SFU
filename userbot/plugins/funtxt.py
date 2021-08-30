@@ -1,6 +1,6 @@
 import nekos
 
-from W2HBOT.utils import admin_cmd, edit_or_reply, sudo_cmd
+from VAMPBOT.utils import admin_cmd, edit_or_reply, sudo_cmd
 from userbot import CMD_HELP
 from userbot.cmdhelp import CmdHelp
 
@@ -35,29 +35,29 @@ async def payf(event):
 
 @bot.on(admin_cmd(pattern="cat$"))
 @bot.on(sudo_cmd(pattern="cat$", allow_sudo=True))
-async def hmm(W2H):
-    if W2H.fwd_from:
+async def hmm(vamp):
+    if vamp.fwd_from:
         return
     reactcat = nekos.textcat()
-    await edit_or_reply(W2H, reactcat)
+    await edit_or_reply(vamp, reactcat)
 
 
 @bot.on(admin_cmd(pattern="why$"))
 @bot.on(sudo_cmd(pattern="why$", allow_sudo=True))
-async def hmm(W2H):
-    if W2H.fwd_from:
+async def hmm(vamp):
+    if vamp.fwd_from:
         return
-    whyW2H = nekos.why()
-    await edit_or_reply(W2H, whyW2H)
+    whyvamp = nekos.why()
+    await edit_or_reply(vamp, whyvamp)
 
 
 @bot.on(admin_cmd(pattern="fact$"))
 @bot.on(sudo_cmd(pattern="fact$", allow_sudo=True))
-async def hmm(W2H):
-    if W2H.fwd_from:
+async def hmm(vamp):
+    if vamp.fwd_from:
         return
-    factW2H = nekos.fact()
-    await edit_or_reply(W2H, factW2H)
+    factvamp = nekos.fact()
+    await edit_or_reply(vamp, factvamp)
 
 
 CmdHelp("funtxts").add_command(

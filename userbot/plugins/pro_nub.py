@@ -1,7 +1,7 @@
 
 import asyncio
 
-from W2HBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
+from VAMPBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
 
 
 @bot.on(admin_cmd(pattern="unoob$", outgoing=True))

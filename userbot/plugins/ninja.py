@@ -7,13 +7,13 @@ from telethon import events
 import telethon.utils
 from telethon.errors import rpcbaseerrors
 
-from W2HBOT.utils import admin_cmd, sudo_cmd, errors_handler
-from userbot import bot as W2HBOT
+from VAMPBOT.utils import admin_cmd, sudo_cmd, errors_handler
+from userbot import bot as VAMPBOT
 from userbot import BOTLOG, BOTLOG_CHATID
 
 
-@W2HBOT.on(admin_cmd(outgoing=True, pattern="del$"))
-@W2HBOT.on(sudo_cmd(allow_sudo=True, pattern="del$"))
+@VAMPBOT.on(admin_cmd(outgoing=True, pattern="del$"))
+@VAMPBOT.on(sudo_cmd(allow_sudo=True, pattern="del$"))
 @errors_handler
 async def delete_it(safai):
     """ For .del command, delete the replied message. """

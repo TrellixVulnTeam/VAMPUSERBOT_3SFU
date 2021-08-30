@@ -10,15 +10,15 @@ import re
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 
 from userbot import bot
-from W2HBOT.utils import admin_cmd, sudo_cmd, edit_or_reply, progress
+from VAMPBOT.utils import admin_cmd, sudo_cmd, edit_or_reply, progress
 from userbot.cmdhelp import CmdHelp
 from userbot.helpers.functions import deEmojify
 
 @bot.on(admin_cmd(pattern="lyrics(?: |$)(.*)", outgoing=True))
 @bot.on(sudo_cmd(pattern="lyrics(?: |$)(.*)", allow_sudo=True))
 async def nope(aura):
-    W2H = aura.pattern_match.group(1)
-    if not W2H:
+    vamp = aura.pattern_match.group(1)
+    if not vamp:
         if aura.is_reply:
             (await aura.get_reply_message()).message
         else:
@@ -27,7 +27,7 @@ async def nope(aura):
             )
             return
 
-    troll = await bot.inline_query("iLyricsBot", f"{(deEmojify(W2H))}")
+    troll = await bot.inline_query("iLyricsBot", f"{(deEmojify(vamp))}")
 
     await troll[0].click(
         aura.chat_id,
@@ -497,7 +497,7 @@ async def _(event):
             await borg.send_file(
                 event.chat_id,
                 songh,
-                caption="🔆**Here's the requested song!**🔆\n`Check out` [W2HBOT](https://t.me/W2HSupport)",
+                caption="🔆**Here's the requested song!**🔆\n`Check out` [VAMPBOT](https://t.me/VAMPBOT_SUPPORT)",
             )
             await event.delete()
         except YouBlockedUserError:

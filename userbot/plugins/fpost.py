@@ -2,7 +2,7 @@ import string
 
 from telethon.tl.types import Channel
 
-from W2HBOT.utils import admin_cmd, edit_or_reply, sudo_cmd
+from VAMPBOT.utils import admin_cmd, edit_or_reply, sudo_cmd
 from userbot import CMD_HELP
 from userbot.cmdhelp import CmdHelp
 from userbot.Config import Config
@@ -15,13 +15,13 @@ global groupsid
 groupsid = []
 
 
-async def all_groups_id(W2H):
-    W2Hgroups = []
-    async for dialog in W2H.client.iter_dialogs():
+async def all_groups_id(vamp):
+    vampgroups = []
+    async for dialog in vamp.client.iter_dialogs():
         entity = dialog.entity
         if isinstance(entity, Channel) and entity.megagroup:
-            W2Hgroups.append(entity.id)
-    return W2Hgroups
+            vampgroups.append(entity.id)
+    return vampgroups
 
 
 @bot.on(admin_cmd(pattern="frwd$"))

@@ -62,7 +62,7 @@ async def _(event):
         qeue = que.get(e)
         appendable = [e]
         qeue.append(appendable)
-        await event.edit(f"W2H {ALIVE_NAME}")
+        await event.edit(f"vamp {ALIVE_NAME}")
 
 
 @bot.on(admin_cmd(pattern="rstops(?: |$)(.*)"))
@@ -90,7 +90,7 @@ async def _(event):
         username = f"[{c}](tg://user?id={e})"
         queue = que.get(e)
         queue.pop(0)
-        await event.edit(f"W2H STOPED RAID {ALIVE_NAME}")
+        await event.edit(f"vamp STOPED RAID {ALIVE_NAME}")
         
         
 CmdHelp("rpersonal").add_command(

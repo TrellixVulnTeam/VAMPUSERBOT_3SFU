@@ -1,6 +1,6 @@
 import requests
 from userbot import CmdHelp
-from W2HBOT.utils import edit_or_reply, admin_cmd, sudo_cmd
+from VAMPBOT.utils import edit_or_reply, admin_cmd, sudo_cmd
 import os
 
 
@@ -14,11 +14,11 @@ async def _(event):
     response = requests.get(url)
     await event.edit("`Creating a fake face...`")
     if response.status_code == 200:
-      with open("W2HBOT.jpg", 'wb') as f:
+      with open("VAMPBOT.jpg", 'wb') as f:
         f.write(response.content)
     
-    captin = f"Fake Image By W2HBOT."
-    fole = "W2HBOT.jpg"
+    captin = f"Fake Image By VAMPBOT."
+    fole = "VAMPBOT.jpg"
     await borg.send_file(event.chat_id, fole, caption=captin)
     await event.delete()
-    os.system("rm /root/userbot/W2HBOT.jpg ")
+    os.system("rm /root/userbot/VAMPBOT.jpg ")

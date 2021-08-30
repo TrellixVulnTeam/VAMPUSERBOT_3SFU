@@ -9,7 +9,7 @@ from datetime import datetime
 
 import aiohttp
 import requests
-from W2HBOT.utils import admin_cmd, progress, sudo_cmd, edit_or_reply
+from VAMPBOT.utils import admin_cmd, progress, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 
 

@@ -8,7 +8,7 @@ from telethon.tl.types import InputMessagesFilterDocument
 
 from userbot import bot
 from userbot.helpers.functions import deEmojify
-from W2HBOT.utils import admin_cmd, edit_or_reply, sudo_cmd
+from VAMPBOT.utils import admin_cmd, edit_or_reply, sudo_cmd
 from userbot.cmdhelp import CmdHelp
 
 # RegEx by https://t.me/c/1220993104/50065
@@ -82,14 +82,14 @@ async def sticklet(event):
         ((512 - width) / 2, (512 - height) / 2), sticktext, font=font, fill=(R, G, B)
     )
     image_stream = io.BytesIO()
-    image_stream.name = "W2HBOT.webp"
+    image_stream.name = "VAMPBOT.webp"
     image.save(image_stream, "WebP")
     image_stream.seek(0)
     # finally, reply the sticker
     await event.client.send_file(
         event.chat_id,
         image_stream,
-        caption="W2Hbot's Sticklet",
+        caption="VAMPBOT's Sticklet",
         reply_to=event.message.reply_to_msg_id,
     )
     # cleanup

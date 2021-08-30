@@ -1,6 +1,6 @@
-# Made by @David99q for @W2H_Userbot
+# Made by @David99q for @VAMPBOT_OFFICIAL
 
-from W2HBOT.utils import *
+from VAMPBOT.utils import *
 from userbot.cmdhelp import CmdHelp
 
 

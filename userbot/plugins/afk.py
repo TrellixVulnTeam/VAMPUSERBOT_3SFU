@@ -1,5 +1,5 @@
 # by uniborg...Thanks @spechide
-# Now will be used in W2HlBot too....
+# Now will be used in vamplBot too....
 import asyncio
 import datetime
 from datetime import datetime
@@ -7,13 +7,13 @@ from datetime import datetime
 from telethon import events
 from telethon.tl import functions, types
 from userbot import CMD_HELP
-from userbot import ALIVE_NAME, W2Hversion
-from W2HBOT.utils import admin_cmd, edit_or_reply
+from userbot import ALIVE_NAME, vampversion
+from VAMPBOT.utils import admin_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "W2H User"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "vamp User"
 
-W2H = bot.uid
+vamp = bot.uid
 
 
 global USER_AFK  # pylint:disable=E0602
@@ -42,11 +42,11 @@ async def set_not_afk(event):
         total_afk_time = str((afk_end - afk_start))
     current_message = event.message.message
     if ".afk" not in current_message and "yes" in USER_AFK:  # pylint:disable=E0602
-        W2HBOT = await borg.send_message(
+        VAMPBOT = await borg.send_message(
             event.chat_id,
             "🔥__Back alive!__\n**No Longer afk.**\n⏱️ `Was afk for:``"
             + total_afk_time
-            + "`", file=W2Hpic
+            + "`", file=vamppic
         )
         try:
             await borg.send_message(  # pylint:disable=E0602
@@ -60,12 +60,12 @@ async def set_not_afk(event):
                 event.chat_id,
                 "Please set `PRIVATE_GROUP_BOT_API_ID` "
                 + "for the proper functioning of afk functionality "
-                + "Ask in @W2HSupport to get help setting this value\n\n `{}`".format(str(e)),
+                + "Ask in @VAMPBOT_SUPPORT to get help setting this value\n\n `{}`".format(str(e)),
                 reply_to=event.message.id,
                 silent=True,
             )
         await asyncio.sleep(5)
-        await W2HBOT.delete()
+        await VAMPBOT.delete()
         USER_AFK = {}  # pylint:disable=E0602
         afk_time = None  # pylint:disable=E0602
 
@@ -96,12 +96,12 @@ async def on_afk(event):
         msg = None
         
         message_to_reply = (
-            f"Hey!! My Legend master [{DEFAULTUSER}](tg://user?id={W2H}) is currently offline... Since when?\n**For** `{total_afk_time}`\n"
+            f"Hey!! My Legend master [{DEFAULTUSER}](tg://user?id={vamp}) is currently offline... Since when?\n**For** `{total_afk_time}`\n"
             + f"\n\n👇__The Reason Is__👇 :-\n`{reason}`"
   if reason
             else f"**Heyy!**\n__I am currently unavailable.__\n__Since when, you ask? From__ `{total_afk_time}`\nI'll be back when I feel to come🚶"
         )
-        msg = await event.reply(message_to_reply, file=W2Hpic)
+        msg = await event.reply(message_to_reply, file=vamppic)
         await asyncio.sleep(2)
         if event.chat_id in last_afk_message:  # pylint:disable=E0602
             await last_afk_message[event.chat_id].delete()  # pylint:disable=E0602
@@ -119,7 +119,7 @@ async def _(event):
     global afk_start
     global afk_end
     global reason
-    global W2Hpic
+    global vamppic
     USER_AFK = {}
     afk_time = None
     last_afk_message = {}
@@ -127,26 +127,26 @@ async def _(event):
     start_1 = datetime.now()
     afk_start = start_1.replace(microsecond=0)
     reason = event.pattern_match.group(1)
-    W2Hpic = await event.client.download_media(aura)
+    vamppic = await event.client.download_media(aura)
     if not USER_AFK:  # pylint:disable=E0602
         last_seen_status = await borg(  # pylint:disable=E0602
             functions.account.GetPrivacyRequest(types.InputPrivacyKeyStatusTimestamp())
         )
         if isinstance(last_seen_status.rules, types.PrivacyValueAllowAll):
             afk_time = datetime.datetime.now()  # pylint:disable=E0602
-        USER_AFK = f"yes: {reason} {W2Hpic}"  # pylint:disable=E0602
+        USER_AFK = f"yes: {reason} {vamppic}"  # pylint:disable=E0602
         if reason:
             await borg.send_message(
-                event.chat_id, f"__**I'm going afk🚶**__ \n⚜️ Because `{reason}`", file=W2Hpic
+                event.chat_id, f"__**I'm going afk🚶**__ \n⚜️ Because `{reason}`", file=vamppic
             )
         else:
-            await borg.send_message(event.chat_id, f"**I am Going afk!**🚶", file=W2Hpic)
+            await borg.send_message(event.chat_id, f"**I am Going afk!**🚶", file=vamppic)
         await asyncio.sleep(0.001)
         await event.delete()
         try:
             await borg.send_message(  # pylint:disable=E0602
                 Config.PRIVATE_GROUP_BOT_API_ID,  # pylint:disable=E0602
-                f"#AFKTRUE \nSet AFK mode to True, and Reason is {reason}",file=W2Hpic
+                f"#AFKTRUE \nSet AFK mode to True, and Reason is {reason}",file=vamppic
             )
         except Exception as e:  # pylint:disable=C0103,W0703
             logger.warn(str(e))  # pylint:disable=E0602

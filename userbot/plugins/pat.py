@@ -11,7 +11,7 @@ from urllib import parse
 
 import requests
 
-from W2HBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
+from VAMPBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 
 BASE_URL = "https://headp.at/pats/{}"

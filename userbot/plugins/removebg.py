@@ -3,9 +3,9 @@ import requests
 import PIL.ImageOps
 from PIL import Image, ImageDraw, ImageFont
 
-from W2HBOT import CmdHelp
+from VAMPBOT import CmdHelp
 from userbot.Config import Config
-from W2HBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
+from VAMPBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
 
 TEMP_DIR = os.environ.get("TEMP_DIR", "./temp/")
    
@@ -51,20 +51,20 @@ async def remove_background(event):
     message_id = await reply_id(event)
     if event.reply_to_msg_id and not input_str:
         reply_message = await event.get_reply_message()
-        W2Hevent = await edit_or_reply(event, "`Analysing...`")
+        vampevent = await edit_or_reply(event, "`Analysing...`")
         file_name = os.path.join(TEMP_DIR, "rmbg.png")
         try:
             await event.client.download_media(reply_message, file_name)
         except Exception as e:
-            await edit_or_reply(W2Hevent, f"`{str(e)}`")
+            await edit_or_reply(vampevent, f"`{str(e)}`")
             return
         else:
-            await W2Hevent.edit("`Removing Background of this media`")
+            await vampevent.edit("`Removing Background of this media`")
             file_name = convert_toimage(file_name)
             response = ReTrieveFile(file_name)
             os.remove(file_name)
     elif input_str:
-        W2Hevent = await edit_or_reply(event, "`Removing Background of this media`")
+        vampevent = await edit_or_reply(event, "`Removing Background of this media`")
         response = ReTrieveURL(input_str)
     else:
         await edit_or_reply(
@@ -73,15 +73,15 @@ async def remove_background(event):
         )
         return
     contentType = response.headers.get("content-type")
-    remove_bg_image = "W2HBOT.png"
+    remove_bg_image = "VAMPBOT.png"
     if "image" in contentType:
-        with open("W2HBOT.png", "wb") as removed_bg_file:
+        with open("VAMPBOT.png", "wb") as removed_bg_file:
             removed_bg_file.write(response.content)
     else:
-        await edit_or_reply(W2Hevent, f"`{response.content.decode('UTF-8')}`")
+        await edit_or_reply(vampevent, f"`{response.content.decode('UTF-8')}`")
         return
     if cmd == "srmbg":
-        file = convert_tosticker(remove_bg_image, filename="W2HBOT.webp")
+        file = convert_tosticker(remove_bg_image, filename="VAMPBOT.webp")
         await event.client.send_file(
             event.chat_id,
             file,
@@ -95,7 +95,7 @@ async def remove_background(event):
             force_document=True,
             reply_to=message_id,
         )
-    await W2Hevent.delete()
+    await vampevent.delete()
 
 
 # this method will call the API, and return in the appropriate format

@@ -7,7 +7,7 @@ import requests
 
 from userbot import CMD_HELP
 from userbot.Config import Config
-from W2HBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
+from VAMPBOT.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 import urllib3
 
@@ -22,7 +22,7 @@ HEROKU_API_KEY = Config.HEROKU_API_KEY
 
 Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
 heroku_api = "https://api.heroku.com"
-W2H_logo = "./W2H/W2HBOT_logo.jpg"
+VAMP_logo = "./vamp/VAMPBOT_logo.jpg"
 
 
 @borg.on(
@@ -184,19 +184,19 @@ async def _(dyno):
     try:
         Heroku = heroku3.from_key(HEROKU_API_KEY)
         app = Heroku.app(HEROKU_APP_NAME)
-        thumb = W2H_logo
+        thumb = VAMP_logo
     except:
         return await dyno.reply(
-            " Please make sure your Heroku API Key, Your App name are configured correctly in the heroku\n\n[Visit Support Group For Help](https://t.me/W2HSupport)"
+            " Please make sure your Heroku API Key, Your App name are configured correctly in the heroku\n\n[Visit Support Group For Help](https://t.me/VAMPBOT_SUPPORT)"
         )
-    W2H_data = app.get_log()
-    W2H_key = (
-        requests.post("https://nekobin.com/api/documents", json={"content": W2H_data})
+    VAMP_data = app.get_log()
+    VAMP_key = (
+        requests.post("https://nekobin.com/api/documents", json={"content": VAMP_data})
         .json()
         .get("result")
         .get("key")
     )
-    W2H_url = f"⚡ Pasted this logs.txt to [NekoBin](https://nekobin.com/{W2H_key}) && [RAW PAGE](https://nekobin.com/raw/{W2H_key}) ⚡"
+    VAMP_url = f"⚡ Pasted this logs.txt to [NekoBin](https://nekobin.com/{VAMP_key}) && [RAW PAGE](https://nekobin.com/raw/{VAMP_key}) ⚡"
     await dyno.edit("Getting Logs....")
     with open("logs.txt", "w") as log:
         log.write(app.get_log())
@@ -206,7 +206,7 @@ async def _(dyno):
         "logs.txt",
         reply_to=dyno.id,
         thumb=thumb,
-        caption=W2H_url,
+        caption=VAMP_url,
     )
 
     await asyncio.sleep(5)

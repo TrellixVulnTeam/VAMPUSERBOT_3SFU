@@ -1,8 +1,8 @@
-# PLUGIN MADE BY @David99q FOR W2HBOT
+# PLUGIN MADE BY @David99q FOR VAMPBOT
 # KEEP CREDITS ELSE GAY
 
 import random, re
-from W2HBOT.utils import admin_cmd
+from VAMPBOT.utils import admin_cmd
 import asyncio
 from telethon import events
 

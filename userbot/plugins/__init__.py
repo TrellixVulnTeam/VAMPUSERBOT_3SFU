@@ -4,21 +4,21 @@ from vampbot.config import Config
 from vampbot.helpers import *
 from vampbot.utils import *
 from vampbot.random_strings import *
-from vampbot.version import __hell__
+from vampbot.version import __vamp__
 from telethon import version
 
 
 VAMP_USER = bot.me.first_name
 D15H4NT0P = bot.uid
-hell_mention = f"[{HELL_USER}](tg://user?id={D15H4NT0P})"
-hell_logo = "./vampbot/resources/pics/vampbot_logo.jpg"
+vamp_mention = f"[{VAMP_USER}](tg://user?id={D15H4NT0P})"
+vamp_logo = "./vampbot/resources/pics/vampbot_logo.jpg"
 cjb = "./vampbot/resources/pics/cjb.jpg"
 restlo = "./vampbot/resources/pics/rest.jpeg"
 shuru = "./vampbot/resources/pics/shuru.jpg"
 shhh = "./vampbot/resources/pics/chup_madarchod.jpeg"
 hl = Config.HANDLER
 shl = Config.SUDO_HANDLER
-hell_ver = __hell__
+vamp_ver = __vamp__
 tel_ver = version.__version__
 
 async def get_user_id(ids):

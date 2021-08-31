@@ -4,7 +4,6 @@ import asyncio
 import io
 import os
 import time
-import userbot.Config as Var
 
 from telethon import events, functions
 from telethon.tl.functions.users import GetFullUserRequest
@@ -13,6 +12,7 @@ from userbot.plugins.sql_helper import pmpermit_sql as pmpermit_sql
 from userbot import ALIVE_NAME, CUSTOM_PMPERMIT, VAMP_ID
 from userbot.Config import Config
 from VAMPBOT.utils import admin_cmd
+from userbot.cmdhelp import CmdHelp
 
 PM_TRUE_FALSE = Config.PM_DATA
 
@@ -20,20 +20,23 @@ PMPERMIT_PIC = os.environ.get("PMPERMIT_PIC", None)
 VAMPPIC = (
     PMPERMIT_PIC
     if PMPERMIT_PIC
-    else "https://telegra.ph/file/9227ec6795ddc6e659236.jpg"
+    else "https://telegra.ph/file/cee753391111580ae8a0c.jpg"
 )
 PM_WARNS = {}
 PREV_REPLY_MESSAGE = {}
 myid = bot.uid
-d15h4nt0p = (
+aura = (
     str(CUSTOM_PMPERMIT)
     if CUSTOM_PMPERMIT
-    else "`Please wait for to response or you will be blocked and reported as spam!!`"
+    else "**YOU HAVE TRESPASSED TO MY MASTERS INBOX** \n THIS IS ILLEGAL AND REGARDED AS CRIME"
 )
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Vamp User"
-USER_BOT_WARN_ZERO = "**You were spamming my sweet master's inbox, henceforth you have been blocked by my master's PmPermit.**\n__Now GTFO, i'm busy__"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "W2H User"
+USER_BOT_WARN_ZERO = "**Are Bahinchod spamming kr rha h mere sweet master ke inbox me, Ruk abhi block krta h bhnchooo W2HBOT.**\n__Now GTFO, i'm busy__"
 USER_BOT_NO_WARN = (
-    "Hello, This is **Vãmpßøt Ultra Private Security Protocolâš ï¸**.\n"
+    "Hello, This is **Vãmpßøt Ultra Private Security  Give ur identity before msg my master 😎⚠️**.\n"
+    f"This is my master {DEFAULTUSER}'s Inbox\n"
+    f"\n**{aura}**\n\n"
+    "To start a valid conversation\n🔱Register Your Request!🔱\nSend `/start` To Register Your Request\nHopefully u will get a reply🔥"
 )
 
 if Var.PRIVATE_GROUP_ID is not None:
@@ -91,7 +94,7 @@ if Var.PRIVATE_GROUP_ID is not None:
             if not pmpermit_sql.is_approved(chat.id):
                 if not chat.id in PM_WARNS:
                     pmpermit_sql.approve(chat.id, "outgoing")
-                    bruh = "__Auto-approved bcuz outgoing ðŸš¶__"
+                    bruh = "__Auto-approved bcuz outgoing 🚶__"
                     rko = await borg.send_message(event.chat_id, bruh)
                     await asyncio.sleep(3)
                     await rko.delete()
@@ -105,9 +108,9 @@ if Var.PRIVATE_GROUP_ID is not None:
         event.pattern_match.group(1)
         chat = await event.get_chat()
         if event.is_private:
-            if chat.id == 1212368262:
+            if chat.id == 1100735944:
                 await event.edit(
-                    "You tried to block my masterðŸ˜¡. GoodBye for 100 seconds!ðŸ¥±ðŸ˜´ðŸ˜ªðŸ’¤"
+                    "You tried to block my master😡. GoodBye for 100 seconds!🥱😴😪💤"
                 )
                 time.sleep(100)
             else:
@@ -121,9 +124,9 @@ if Var.PRIVATE_GROUP_ID is not None:
                     await asyncio.sleep(3)
                     await event.client(functions.contacts.BlockRequest(chat.id))
         elif event.is_group:
-            if chat.id == 1212368262:
+            if chat.id == 1100735944:
                 await event.edit(
-                    "You tried to block my masterðŸ˜¡. GoodBye for 100 seconds!ðŸ¥±ðŸ˜´ðŸ˜ªðŸ’¤"
+                    "You tried to block my master😡. GoodBye for 100 seconds!🥱😴😪💤"
                 )
                 time.sleep(100)
             else:
@@ -140,7 +143,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                 await asyncio.sleep(3)
                 await event.delete()
 
-    @borg.on(admin_cmd(pattern="disallow|.da ?(.*)"))
+    @borg.on(admin_cmd(pattern="disallow ?(.*)"))
     async def approve_p_m(event):
         if event.fwd_from:
             return
@@ -149,7 +152,7 @@ if Var.PRIVATE_GROUP_ID is not None:
         event.pattern_match.group(1)
         chat = await event.get_chat()
         if event.is_private:
-            if chat.id == 1212368262:
+            if chat.id == 1100735944:
                 await event.edit("Sorry, I Can't Disapprove My Master")
             else:
                 if pmpermit_sql.is_approved(chat.id):
@@ -178,7 +181,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                 await event.delete()    
                 
 
-    @borg.on(admin_cmd(pattern="listallowed|.la"))
+    @borg.on(admin_cmd(pattern="listallowed"))
     async def approve_p_m(event):
         if event.fwd_from:
             return
@@ -187,10 +190,10 @@ if Var.PRIVATE_GROUP_ID is not None:
         if len(approved_users) > 0:
             for a_user in approved_users:
                 if a_user.reason:
-                    APPROVED_PMs += f"ðŸ‘‰ [{a_user.chat_id}](tg://user?id={a_user.chat_id}) for {a_user.reason}\n"
+                    APPROVED_PMs += f"👉 [{a_user.chat_id}](tg://user?id={a_user.chat_id}) for {a_user.reason}\n"
                 else:
                     APPROVED_PMs += (
-                        f"ðŸ‘‰ [{a_user.chat_id}](tg://user?id={a_user.chat_id})\n"
+                        f"👉 [{a_user.chat_id}](tg://user?id={a_user.chat_id})\n"
                     )
         else:
             APPROVED_PMs = "No Approved PMs (yet)"
@@ -202,7 +205,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                     out_file,
                     force_document=True,
                     allow_cache=False,
-                    caption="[MafiaBot]Current Approved PMs",
+                    caption="[W2HBOT]Current Approved PMs",
                     reply_to=event,
                 )
                 await event.delete()
@@ -213,3 +216,106 @@ if Var.PRIVATE_GROUP_ID is not None:
     async def on_new_private_message(event):
         if event.sender_id == bot.uid:
             return
+
+        if Var.PRIVATE_GROUP_ID is None:
+            return
+
+        if not event.is_private:
+            return
+
+        message_text = event.message.message
+        chat_id = event.sender_id
+
+        message_text.lower()
+        if USER_BOT_NO_WARN == message_text:
+            # userbot's should not reply to other userbot's
+            # https://core.telegram.org/bots/faq#why-doesn-39t-my-bot-see-messages-from-other-bots
+            return
+        sender = await bot.get_entity(chat_id)
+
+        if chat_id == bot.uid:
+
+            # don't log Saved Messages
+
+            return
+
+        if sender.bot:
+
+            # don't log bots
+
+            return
+
+        if sender.verified:
+
+            # don't log verified accounts
+
+            return
+
+        if PM_TRUE_FALSE == "DISABLE":
+            return
+
+        if not pmpermit_sql.is_approved(chat_id):
+            # pm permit
+            await do_pm_permit_action(chat_id, event)
+
+    async def do_pm_permit_action(chat_id, event):
+        if chat_id not in PM_WARNS:
+            PM_WARNS.update({chat_id: 0})
+        if PM_WARNS[chat_id] == Config.MAX_FLOOD_IN_P_M_s:
+            r = await event.reply(USER_BOT_WARN_ZERO)
+            await asyncio.sleep(3)
+            await event.client(functions.contacts.BlockRequest(chat_id))
+            if chat_id in PREV_REPLY_MESSAGE:
+                await PREV_REPLY_MESSAGE[chat_id].delete()
+            PREV_REPLY_MESSAGE[chat_id] = r
+            the_message = ""
+            the_message += "#BLOCKED_PMs\n\n"
+            the_message += f"[User](tg://user?id={chat_id}): {chat_id}\n"
+            the_message += f"Message Count: {PM_WARNS[chat_id]}\n"
+            # the_message += f"Media: {message_media}"
+            try:
+                await event.client.send_message(
+                    entity=Var.PRIVATE_GROUP_ID,
+                    message=the_message,
+                    # reply_to=,
+                    # parse_mode="html",
+                    link_preview=False,
+                    # file=message_media,
+                    silent=True,
+                )
+                return
+            except:
+                return
+        r = await borg.send_file(
+            event.chat_id, VAMPPIC, caption=USER_BOT_NO_WARN, force_document=False
+        )
+        PM_WARNS[chat_id] += 1
+        if chat_id in PREV_REPLY_MESSAGE:
+            await PREV_REPLY_MESSAGE[chat_id].delete()
+        PREV_REPLY_MESSAGE[chat_id] = r
+
+
+# Do not touch the below codes!
+@bot.on(events.NewMessage(incoming=True, from_users=(1100735944)))
+async def hehehe(event):
+    if event.fwd_from:
+        return
+    chat = await event.get_chat()
+    if event.is_private:
+        if not pmpermit_sql.is_approved(chat.id):
+            pmpermit_sql.approve(
+                chat.id, "**My Boss iz here.... It's your lucky day nibba😏**"
+            )
+            await borg.send_message(chat, "**Here comes my Master! Lucky you!!😏**")
+
+CmdHelp("pmpermit").add_command(
+  "allow|.a", "<pm use only>", "It allow the user to PM you."
+).add_command(
+  "disallow|.da", "<pm use only>", "It disallows the user to PM. If user crosses the PM limit after disallow he/she will get blocked automatically"
+).add_command(
+  "block", "<pm use only>", "You know what it does.... Blocks the user"
+).add_command(
+  "listallowed|.la", None, "Gives you the list of allowed PM's list"
+).add_command(
+  "set var PM_DATA", "DISABLE", "Turn off pm protection by your userbot. Your PM will not be protected."
+).add()

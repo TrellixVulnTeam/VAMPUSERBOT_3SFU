@@ -5,7 +5,7 @@ from datetime import datetime
 from telethon import events
 from telethon.tl import functions, types
 from userbot import CMD_HELP
-from userbot import ALIVE_NAME, VAMPversion
+from userbot import ALIVE_NAME, vampversion
 from VAMPBOT.utils import admin_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 

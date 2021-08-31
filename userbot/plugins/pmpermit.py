@@ -17,7 +17,7 @@ from vampbot.utils import admin_cmd
 PM_TRUE_FALSE = Config.PM_DATA
 
 PMPERMIT_PIC = os.environ.get("PMPERMIT_PIC", None)
-MAFIAPIC = (
+VAMPPIC = (
     PMPERMIT_PIC
     if PMPERMIT_PIC
     else "https://telegra.ph/file/9227ec6795ddc6e659236.jpg"
@@ -30,10 +30,10 @@ d15h4nt0p = (
     if CUSTOM_PMPERMIT
     else "`Please wait for to response or you will be blocked and reported as spam!!`"
 )
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Mafia User"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Vamp User"
 USER_BOT_WARN_ZERO = "**You were spamming my sweet master's inbox, henceforth you have been blocked by my master's PmPermit.**\n__Now GTFO, i'm busy__"
 USER_BOT_NO_WARN = (
-    "Hello, This is **PmPermit Ultra Private Security Protocolâš ï¸**.\n"
+    "Hello, This is **Vãmpßøt Ultra Private Security Protocolâš ï¸**.\n"
 )
 
 if Var.PRIVATE_GROUP_ID is not None:
@@ -314,9 +314,9 @@ from telethon import events, functions
 from telethon.tl.functions.users import GetFullUserRequest
 
 from userbot.plugins.sql_helper import pmpermit_sql as pmpermit_sql
-from userbot import ALIVE_NAME, CUSTOM_PMPERMIT, mafia_ID
+from userbot import ALIVE_NAME, CUSTOM_PMPERMIT, VAMP_ID
 from userbot.Config import Config
-from mafiabot.utils import admin_cmd
+from vampbot.utils import admin_cmd
 
 PM_TRUE_FALSE = Config.PM_DATA
 
@@ -506,7 +506,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                     out_file,
                     force_document=True,
                     allow_cache=False,
-                    caption="[Vamp
+                    caption="[vamp
 Bot]Current Approved PMs",
                     reply_to=event,
                 )

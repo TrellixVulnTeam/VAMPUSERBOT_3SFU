@@ -206,11 +206,11 @@ if Var.PRIVATE_GROUP_ID is not None:
             if chat_ids in VAMP_REVL_MSG:
                 await VAMP_REVL_MSG[chat_ids].delete()
             VAMP_REVL_MSG[chat_ids] = lemme
-              vamp_msg = ""
-              vamp_msg += "#Some Retards 😑\n\n"
-              vamp_msg += f"[User](tg://user?id={chat_ids}): {chat_ids}\n"
-              vamp_msg += f"Message Counts: {VAMP_WRN[chat_ids]}\n"
-            # vamp_msg += f"Media: {message_media}"
+              admin_msg = ""
+              admin_msg += "#Some Retards 😑\n\n"
+              admin_msg += f"[User](tg://user?id={chat_ids}): {chat_ids}\n"
+              admin_msg += f"Message Counts: {VAMP_WRN[chat_ids]}\n"
+            # admin_msg += f"Media: {message_media}"
             try:
                 await vamp.client.send_message(
                     entity=Var.PRIVATE_GROUP_ID,

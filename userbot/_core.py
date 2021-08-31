@@ -23,7 +23,7 @@ async def send(event):
     message_id = event.message.id
     thumb = VAMP_logo
     input_str = event.pattern_match.group(1)
-    omk = f"**⍟ Plugin name ≈** `{input_str}`\n**⍟ Uploaded by ≈** {vamp}\n\n⚡ **[Legendary VAMPBOT](t.me/VAMPBOT_OFFICIAL)** ⚡"
+    omk = f"**⍟ Plugin name ≈** `{input_str}`\n**⍟ Uploaded by ≈** {vamp}\n\n⚡ **[ℓεɠεɳ∂α૨ყ αƒ ʋαʍքɮօȶ](t.me/VAMPBOT_OFFICIAL)** ⚡"
     the_plugin_file = "./userbot/plugins/{}.py".format(input_str)
     if os.path.exists(the_plugin_file):
         lauda = await event.client.send_file(

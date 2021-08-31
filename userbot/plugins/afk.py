@@ -223,7 +223,7 @@ async def set_not_night(event):
         night_time = None
 
 
-@bot.on(vamp_cmd(pattern=r"night ?(.*)"))
+@bot.on(admin_cmd(pattern=r"night ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return

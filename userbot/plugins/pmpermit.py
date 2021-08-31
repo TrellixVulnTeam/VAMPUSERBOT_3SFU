@@ -12,7 +12,7 @@ from telethon.tl.functions.users import GetFullUserRequest
 from userbot.plugins.sql_helper import pmpermit_sql as pmpermit_sql
 from userbot import ALIVE_NAME, CUSTOM_PMPERMIT, VAMP_ID
 from userbot.Config import Config
-from userbot.utils import admin_cmd
+from VAMPBOT.utils import admin_cmd
 
 PM_TRUE_FALSE = Config.PM_DATA
 

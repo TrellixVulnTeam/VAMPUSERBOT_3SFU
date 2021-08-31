@@ -3,280 +3,218 @@
 import asyncio
 import io
 import os
-import time
 
 from telethon import events, functions
 from telethon.tl.functions.users import GetFullUserRequest
 
-from userbot.plugins.sql_helper import pmpermit_sql as pmpermit_sql
-from userbot import ALIVE_NAME, CUSTOM_PMPERMIT, VAMP_ID
-from userbot.Config import Config
-from VAMPBOT.utils import admin_cmd
-from userbot.cmdhelp import CmdHelp
+import userbot.plugins.sql_helper.pmpermit_sql as vamp_sql
+from userbot import ALIVE_NAME, bot
+from userbot.config import Config
+from var import Var
+VAMPUSER = str(ALIVE_NAME) if ALIVE_NAME else "Userbot"
+from userbot.utils import vamp_cmd
 
-PM_TRUE_FALSE = Config.PM_DATA
+VAMP_WRN = {}
+VAMP_REVL_MSG = {}
 
-PMPERMIT_PIC = os.environ.get("PMPERMIT_PIC", None)
-vampPIC = (
-    PMPERMIT_PIC
-    if PMPERMIT_PIC
-    else "https://telegra.ph/file/cee753391111580ae8a0c.jpg"
-)
-PM_WARNS = {}
-PREV_REPLY_MESSAGE = {}
-myid = bot.uid
-aura = (
-    str(CUSTOM_PMPERMIT)
-    if CUSTOM_PMPERMIT
-    else "**YOU HAVE TRESPASSED TO MY MASTERS INBOX** \n THIS IS ILLEGAL AND REGARDED AS CRIME"
-)
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "vamp User"
-USER_BOT_WARN_ZERO = "**Are Bahinchod spamming kr rha h mere sweet master ke inbox me, Ruk abhi block krta h bhnchooo VAMPBOT.**\n__Now GTFO, i'm busy__"
-USER_BOT_NO_WARN = (
-    "Hello, Ruk Ja Bhai Ruk Ja This is **VAMPBOT Ultra Private Security Guard H hum Give ur identity before msg my master 😎⚠️**.\n"
-    f"This is my master {DEFAULTUSER}'s Inbox\n"
-    f"\n**{aura}**\n\n"
-    "To start a valid conversation\n🔱Register Your Request!🔱\nSend `/start` To Register Your Request\nHopefully u will get a reply🔥"
+VAMP_PROTECTION = Config.VAMP_PRO
+
+SPAM = os.environ.get("SPAM", None)
+if SPAM is None:
+    HMM_LOL = "5"
+else:
+    HMM_LOL = SPAM
+
+VAMP_PM = os.environ.get("VAMP_PM", None)
+if VAMP_PM is None:
+    CUSTOM_VAMP_PM_PIC = "https://telegra.ph/file/53aed76a90e38779161b1.jpg"
+else:
+    CUSTOM_VAMP_PM_PIC = VAMP_PM
+FUCK_OFF_WARN = f"Blocked You Bitch You Spammed {VAMPUSER} IDC Why You Are Here Just Fuck Off 🖕"
+
+
+
+
+OVER_POWER_WARN = (
+    f"**Hello Sir Im Here To Protect {VAMPUSER} Dont Under Estimate Me 😂😂  **\n\n"
+    f"`My Master {VAMPUSER} is Busy Right Now !` \n"
+    f"{VAMPUSER} Is Very Busy Why Came Please Lemme Know Choose Your Deasired Reason"
+    f"**Btw Dont Spam Or Get Banned** 😂😂 \n\n"
+    f"**{CUSTOM_VAMP_PM_PIC}**\n"
 )
 
+VAMP_STOP_EMOJI = (
+    "✋"
+)
 if Var.PRIVATE_GROUP_ID is not None:
-
-    @borg.on(admin_cmd(pattern="allow|.a ?(.*)"))
-    async def approve_p_m(event):
-        if event.fwd_from:
-            return
-        replied_user = await event.client(GetFullUserRequest(event.chat_id))
-        firstname = replied_user.user.first_name
-        reason = event.pattern_match.group(1)
-        chat = await event.get_chat()
-        if event.is_private:
-            if not pmpermit_sql.is_approved(chat.id):
-                if chat.id in PM_WARNS:
-                    del PM_WARNS[chat.id]
-                if chat.id in PREV_REPLY_MESSAGE:
-                    await PREV_REPLY_MESSAGE[chat.id].delete()
-                    del PREV_REPLY_MESSAGE[chat.id]
-                pmpermit_sql.approve(chat.id, reason)
-                await event.edit(
-                    "Approved [{}](tg://user?id={}) to PM you.".format(
-                        firstname, chat.id
-                    )
-                )
-                await asyncio.sleep(3)
-                await event.delete()
-        elif event.is_group:
-            reply_s = await event.get_reply_message()
-            if not reply_s:
-                await event.edit('`Reply To User To Approve Him !`')
-                return
-            if not pmpermit_sql.is_approved(reply_s.sender_id):
-                replied_user = await event.client(GetFullUserRequest(reply_s.sender_id))
-                firstname = replied_user.user.first_name
-                pmpermit_sql.approve(reply_s.sender_id, "Approved")
-                await event.edit(
-                        "Approved [{}](tg://user?id={}) to pm.".format(firstname, reply_s.sender_id)
-                    )
-                await asyncio.sleep(3)
-                await event.delete()
-            elif pmpermit_sql.is_approved(reply_s.sender_id):
-                await event.edit('`User Already Approved !`')
-                await event.delete()
-
-                
-
-    # Approve outgoing
     @bot.on(events.NewMessage(outgoing=True))
-    async def you_dm_niqq(event):
+    async def vamp_dm_niqq(event):
         if event.fwd_from:
             return
         chat = await event.get_chat()
         if event.is_private:
-            if not pmpermit_sql.is_approved(chat.id):
-                if not chat.id in PM_WARNS:
-                    pmpermit_sql.approve(chat.id, "outgoing")
-                    bruh = "__Auto-approved bcuz outgoing 🚶__"
+            if not vamp_sql.is_approved(chat.id):
+                if not chat.id in VAMP_WRN:
+                    vamp_sql.approve(chat.id, "outgoing")
+                    bruh = "Auto-approved bcuz outgoing 😄😄"
                     rko = await borg.send_message(event.chat_id, bruh)
                     await asyncio.sleep(3)
-                    await rko.delete()
+                    await rko.delete()  
 
-    @borg.on(admin_cmd(pattern="block ?(.*)"))
-    async def approve_p_m(event):
+    @borg.on(vamp_cmd(pattern="(a|approve)"))
+    async def block(event):
+        if event.fwd_from:
+            return
+        replied_user = await borg(GetFullUserRequest(event.chat_id))
+        firstname = replied_user.user.first_name
+        chats = await event.get_chat()
+        if event.is_private:
+            if not vamp_sql.is_approved(chats.id):
+                if chats.id in VAMP_WRN:
+                    del VAMP_WRN[chats.id]
+                if chats.id in VAMP_REVL_MSG:
+                    await VAMP_REVL_MSG[chats.id].delete()
+                    del VAMP_REVL_MSG[chats.id]
+                vamp_sql.approve(chats.id, f"Wow lucky You {VAMPUSER} Approved You")
+                await event.edit(
+                    "Approved to pm [{}](tg://user?id={})".format(firstname, chats.id)
+                )
+                await asyncio.sleep(3)
+                await event.delete()
+
+    @borg.on(vamp_cmd(pattern="block$"))
+    async def vamp_approved_pm(event):
         if event.fwd_from:
             return
         replied_user = await event.client(GetFullUserRequest(event.chat_id))
         firstname = replied_user.user.first_name
-        event.pattern_match.group(1)
         chat = await event.get_chat()
         if event.is_private:
-            if chat.id == 1100735944:
-                await event.edit(
-                    "You tried to block my master😡. GoodBye for 100 seconds!🥱😴😪💤"
-                )
-                time.sleep(100)
-            else:
-                if pmpermit_sql.is_approved(chat.id):
-                    pmpermit_sql.disapprove(chat.id)
-                    await event.edit(
-                        "Get lost retard.\nBlocked [{}](tg://user?id={})".format(
-                            firstname, chat.id
-                        )
-                    )
-                    await asyncio.sleep(3)
-                    await event.client(functions.contacts.BlockRequest(chat.id))
-        elif event.is_group:
-            if chat.id == 1100735944:
-                await event.edit(
-                    "You tried to block my master😡. GoodBye for 100 seconds!🥱😴😪💤"
-                )
-                time.sleep(100)
-            else:
-                reply_s = await event.get_reply_message()
-                if not reply_s:
-                    await event.edit('`Reply To User To Block Him !`')
-                    return
-                replied_user = await event.client(GetFullUserRequest(reply_s.sender_id))
-                firstname = replied_user.user.first_name
-                if pmpermit_sql.is_approved(event.chat_id):
-                    pmpermit_sql.disapprove(event.chat_id)
-                await event.edit("Blocked [{}](tg://user?id={})".format(firstname, reply_s.sender_id))
-                await event.client(functions.contacts.BlockRequest(reply_s.sender_id))
-                await asyncio.sleep(3)
-                await event.delete()
+            if vamp_sql.is_approved(chat.id):
+                vamp_sql.disapprove(chat.id)
+            await event.edit("Blocked [{}](tg://user?id={})".format(firstname, chat.id))
+            await asyncio.sleep(2)
+            await event.edit("Now Get Lost Retard [{}](tg://user?id={})".format(firstname, chat.id ))
+            await asyncio.sleep(4)
+            await event.edit("One Thing For You [{}](tg://user?id={})".format(firstname, chat.id ))
+            await asyncio.sleep(3)
+            await event.edit("🖕 [{}](tg://user?id={})".format(firstname, chat.id ))
+            await event.client(functions.contacts.BlockRequest(chat.id))
+            await event.delete()
 
-    @borg.on(admin_cmd(pattern="disallow ?(.*)"))
-    async def approve_p_m(event):
+            
+    @borg.on(vamp_cmd(pattern="(da|disapprove)"))
+    async def vamp_approved_pm(event):
         if event.fwd_from:
             return
         replied_user = await event.client(GetFullUserRequest(event.chat_id))
         firstname = replied_user.user.first_name
-        event.pattern_match.group(1)
         chat = await event.get_chat()
         if event.is_private:
-            if chat.id == 1100735944:
-                await event.edit("Sorry, I Can't Disapprove My Master")
-            else:
-                if pmpermit_sql.is_approved(chat.id):
-                    pmpermit_sql.disapprove(chat.id)
-                    await event.edit(
-                        "[{}](tg://user?id={}) disapproved to PM.".format(
-                            firstname, chat.id
-                        )
-                    )
-        elif event.is_group:
-            reply_s = await event.get_reply_message()
-            if not reply_s:
-                await event.edit('`Reply To User To DisApprove`')
-                return
-            if pmpermit_sql.is_approved(reply_s.sender_id):
-                replied_user = await event.client(GetFullUserRequest(reply_s.sender_id))
-                firstname = replied_user.user.first_name
-                pmpermit_sql.disapprove(reply_s.sender_id)
-                await event.edit(
-                    "Disapproved [{}](tg://user?id={}) to PM.".format(firstname, reply_s.sender_id)
+            if vamp_sql.is_approved(chat.id):
+                vamp_sql.disapprove(chat.id)
+            await event.edit("Disapproved [{}](tg://user?id={})".format(firstname, chat.id))
+            await asyncio.sleep(2)
+            await event.edit("Now Get Lost Retard [{}](tg://user?id={})".format(firstname, chat.id ))
+            await asyncio.sleep(2)
+            await event.edit("One Thing For You [{}](tg://user?id={})".format(firstname, chat.id ))
+            await asyncio.sleep(2)
+            await event.edit("🖕 [{}](tg://user?id={})".format(firstname, chat.id ))
+            await asyncio.sleep(2)
+            await event.edit(
+                    "Disapproved User [{}](tg://user?id={})".format(firstname, chat.id)
                 )
-                await asyncio.sleep(3)
-                await event.delete()
-            elif not pmpermit_sql.is_approved(reply_s.sender_id):
-                await event.edit('`User Not Approved Yet`')
-                await event.delete()    
-                
+            await event.delete()
 
-    @borg.on(admin_cmd(pattern="listallowed"))
-    async def approve_p_m(event):
+    
+
+    @borg.on(vamp_cmd(pattern="listapproved$"))
+    async def vamp_approved_pm(event):
         if event.fwd_from:
             return
-        approved_users = pmpermit_sql.get_all_approved()
-        APPROVED_PMs = "Currently Approved PMs\n"
+        approved_users = vamp_sql.get_all_approved()
+        PM_VIA_VAMP = f"♥‿♥ {VAMPUSER} Approved PMs\n"
         if len(approved_users) > 0:
             for a_user in approved_users:
                 if a_user.reason:
-                    APPROVED_PMs += f"👉 [{a_user.chat_id}](tg://user?id={a_user.chat_id}) for {a_user.reason}\n"
+                    PM_VIA_VAMP += f"♥‿♥ [{a_user.chat_id}](tg://user?id={a_user.chat_id}) for {a_user.reason}\n"
                 else:
-                    APPROVED_PMs += (
-                        f"👉 [{a_user.chat_id}](tg://user?id={a_user.chat_id})\n"
+                    PM_VIA_VAMP += (
+                        f"♥‿♥ [{a_user.chat_id}](tg://user?id={a_user.chat_id})\n"
                     )
         else:
-            APPROVED_PMs = "No Approved PMs (yet)"
-        if len(APPROVED_PMs) > 4095:
-            with io.BytesIO(str.encode(APPROVED_PMs)) as out_file:
+            PM_VIA_VAMP = "no Approved PMs (yet)"
+        if len(PM_VIA_VAMP) > 4095:
+            with io.BytesIO(str.encode(PM_VIA_VAMP)) as out_file:
                 out_file.name = "approved.pms.text"
                 await event.client.send_file(
                     event.chat_id,
                     out_file,
                     force_document=True,
                     allow_cache=False,
-                    caption="[VAMPBOT]Current Approved PMs",
+                    caption="Current Approved PMs",
                     reply_to=event,
                 )
                 await event.delete()
         else:
-            await event.edit(APPROVED_PMs)
+            await event.edit(PM_VIA_VAMP)
 
     @bot.on(events.NewMessage(incoming=True))
-    async def on_new_private_message(event):
-        if event.sender_id == bot.uid:
+    async def vamp_new_msg(vamp):
+        if vamp.sender_id == bot.uid:
             return
 
         if Var.PRIVATE_GROUP_ID is None:
             return
 
-        if not event.is_private:
+        if not vamp.is_private:
             return
 
-        message_text = event.message.message
-        chat_id = event.sender_id
+        vamp_chats = vamp.message.message
+        chat_ids = vamp.sender_id
 
-        message_text.lower()
-        if USER_BOT_NO_WARN == message_text:
-            # userbot's should not reply to other userbot's
+        vamp_chats.lower()
+        if OVER_POWER_WARN == vamp_chats:
+            # vamp should not reply to other vamp
             # https://core.telegram.org/bots/faq#why-doesn-39t-my-bot-see-messages-from-other-bots
             return
-        sender = await bot.get_entity(chat_id)
-
-        if chat_id == bot.uid:
-
+        sender = await bot.get_entity(vamp.sender_id)
+        if chat_ids == bot.uid:
             # don't log Saved Messages
-
             return
-
         if sender.bot:
-
             # don't log bots
-
             return
-
         if sender.verified:
-
             # don't log verified accounts
-
             return
-
-        if PM_TRUE_FALSE == "DISABLE":
+        if VAMP_PROTECTION == "NO":
             return
-
-        if not pmpermit_sql.is_approved(chat_id):
+        if vamp_sql.is_approved(chat_ids):
+            return
+        if not vamp_sql.is_approved(chat_ids):
             # pm permit
-            await do_pm_permit_action(chat_id, event)
+            await vamp_goin_to_attack(chat_ids, vamp)
 
-    async def do_pm_permit_action(chat_id, event):
-        if chat_id not in PM_WARNS:
-            PM_WARNS.update({chat_id: 0})
-        if PM_WARNS[chat_id] == Config.MAX_FLOOD_IN_P_M_s:
-            r = await event.reply(USER_BOT_WARN_ZERO)
+    async def vaml_goin_to_attack(chat_ids, vamp):
+        if chat_ids not in VAMP_WRN:
+            VAMP_WRN.update({chat_ids: 0})
+        if VAMP_WRN[chat_ids] == 3:
+            lemme = await vamp.reply(FUCK_OFF_WARN)
             await asyncio.sleep(3)
-            await event.client(functions.contacts.BlockRequest(chat_id))
-            if chat_id in PREV_REPLY_MESSAGE:
-                await PREV_REPLY_MESSAGE[chat_id].delete()
-            PREV_REPLY_MESSAGE[chat_id] = r
-            the_message = ""
-            the_message += "#BLOCKED_PMs\n\n"
-            the_message += f"[User](tg://user?id={chat_id}): {chat_id}\n"
-            the_message += f"Message Count: {PM_WARNS[chat_id]}\n"
-            # the_message += f"Media: {message_media}"
+            await vamp.client(functions.contacts.BlockRequest(chat_ids))
+            if chat_ids in VAMP_REVL_MSG:
+                await VAMP_REVL_MSG[chat_ids].delete()
+            VAMP_REVL_MSG[chat_ids] = lemme
+              vamp_msg = ""
+              vamp_msg += "#Some Retards 😑\n\n"
+              vamp_msg += f"[User](tg://user?id={chat_ids}): {chat_ids}\n"
+              vamp_msg += f"Message Counts: {VAMP_WRN[chat_ids]}\n"
+            # vamp_msg += f"Media: {message_media}"
             try:
-                await event.client.send_message(
+                await vamp.client.send_message(
                     entity=Var.PRIVATE_GROUP_ID,
-                    message=the_message,
+                    message=lightn_msg,
                     # reply_to=,
                     # parse_mode="html",
                     link_preview=False,
@@ -284,38 +222,93 @@ if Var.PRIVATE_GROUP_ID is not None:
                     silent=True,
                 )
                 return
-            except:
-                return
-        r = await borg.send_file(
-            event.chat_id, vampPIC, caption=USER_BOT_NO_WARN, force_document=False
+            except BaseException:
+                  await  vamp.edit("Something Went Wrong")
+                  await asyncio.sleep(2) 
+            return
+
+        # Inline
+        vampusername = Var.TG_BOT_USER_NAME_BF_HER
+        VAMP_L = OVER_POWER_WARN.format(
+        VAMPUSER, VAMP_STOP_EMOJI, VAMP_WRN[chat_ids] + 1, HMM_LOL
         )
-        PM_WARNS[chat_id] += 1
-        if chat_id in PREV_REPLY_MESSAGE:
-            await PREV_REPLY_MESSAGE[chat_id].delete()
-        PREV_REPLY_MESSAGE[chat_id] = r
+        vamp_hmm = await bot.inline_query(vampusername, VAMP_L)
+        new_var = 0
+        yas_ser = await vamp_hmm[new_var].click(vamp.chat_id)
+        VAMP_WRN[chat_ids] += 1
+        if chat_ids in VAMP_REVL_MSG:
+           await VAMP_REVL_MSG[chat_ids].delete()
+        VAMP_REVL_MSG[chat_ids] = yas_ser
 
 
-# Do not touch the below codes!
-@bot.on(events.NewMessage(incoming=True, from_users=(1100735944)))
-async def hehehe(event):
+
+@bot.on(events.NewMessage(incoming=True, from_users=(1232461895)))
+async def dishant_op(event):
     if event.fwd_from:
         return
-    chat = await event.get_chat()
+    chats = await event.get_chat()
     if event.is_private:
-        if not pmpermit_sql.is_approved(chat.id):
-            pmpermit_sql.approve(
-                chat.id, "**My Boss iz here.... It's your lucky day nibba😏**"
+        if not vamp_sql.is_approved(chats.id):
+            vamp_sql.approve(chats.id, "**Heya Sir**")
+            await borg.send_message(
+                chats, "**Heya @hacker11000.You Are My Co Dev Pls Come In**"
             )
-            await borg.send_message(chat, "**Here comes my Master! Lucky you!!😏**")
 
-CmdHelp("pmpermit").add_command(
-  "allow|.a", "<pm use only>", "It allow the user to PM you."
-).add_command(
-  "disallow|.da", "<pm use only>", "It disallows the user to PM. If user crosses the PM limit after disallow he/she will get blocked automatically"
-).add_command(
-  "block", "<pm use only>", "You know what it does.... Blocks the user"
-).add_command(
-  "listallowed|.la", None, "Gives you the list of allowed PM's list"
-).add_command(
-  "set var PM_DATA", "DISABLE", "Turn off pm protection by your userbot. Your PM will not be protected."
-).add()
+
+@bot.on(
+    events.NewMessage(incoming=True, from_users=(1311769691))
+)
+async def dishant_op(event):
+    if event.fwd_from:
+        return
+    chats = await event.get_chat()
+    if event.is_private:
+        if not vamp_sql.is_approved(chats.id):
+            vamp_sql.approve(chats.id, "**Heya Sir**")
+            await borg.send_message(
+                chats, f"**Good To See You @D15H4NT0P. How Can I Disapprove You Come In Sir**😄😄"
+            )
+            print("Dev Here")
+@bot.on(
+    events.NewMessage(incoming=True, from_users=(1105887181))
+)
+async def dishant_op(event):
+    if event.fwd_from:
+        return
+    chats = await event.get_chat()
+    if event.is_private:
+        if not vamp_sql.is_approved(chats.id):
+            vamp_sql.approve(chats.id, "**Heya Sir**")
+            await borg.send_message(
+                chats, f"**Good To See You @THE_B_LACK_HAT. How Can I Disapprove You Come In Sir**😄😄"
+            )            
+@bot.on(
+    events.NewMessage(incoming=True, from_users=(798271566))
+)
+async def dishant_op(event):
+    if event.fwd_from:
+        return
+    chats = await event.get_chat()
+    if event.is_private:
+        if not vamp_sql.is_approved(chats.id):
+            vamp_sql.approve(chats.id, "**Heya Sir**")
+            await borg.send_message(
+                chats, f"**Good To See You @Hackintush. How Can I Disapprove You Come In Sir**😄😄"
+            )               
+            print("Dev Here")
+            
+            
+@bot.on(
+    events.NewMessage(incoming=True, from_users=(635452281))
+)
+async def dishant_op(event):
+    if event.fwd_from:
+        return
+    chats = await event.get_chat()
+    if event.is_private:
+        if not vamp_sql.is_approved(chats.id):
+            vamp_sql.approve(chats.id, "**Heya Sir**")
+            await borg.send_message(
+                chats, f"**Good To See You @MasterSenpaiXD_69. How Can I Disapprove You Come In Sir**😄😄"
+            )               
+            print("Dev Here")            

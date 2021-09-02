@@ -97,7 +97,7 @@ async def on_afk(event):
             f"I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`\n"
             + f"\n**💬 Reason :"" {reason}`"
   if reason
-            else f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`\n"+ f"\n**💬 Reason : {reason}\nI'll be back when I feel to come🚶"
+            else f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`\n"+ f"\n**💬 Reason :"" {reason} '\nI'll be back when I feel to come🚶"
         )
         msg = await event.reply(message_to_reply, file=VAMPpic)
         await asyncio.sleep(2)

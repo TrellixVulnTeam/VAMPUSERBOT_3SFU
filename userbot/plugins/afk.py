@@ -95,9 +95,9 @@ async def on_afk(event):
         
         message_to_reply = (
             f"I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`\n"
-            + f"\n**💬 Reason :** {reason}`"
+            + f"\n**💬 Reason :"" {reason}`"
   if reason
-            else f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`\n"+ f"\n**💬 Reason :** {reason}`\nI'll be back when I feel to come🚶"
+            else f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`\n"+ f"\n**💬 Reason : {reason}\nI'll be back when I feel to come🚶"
         )
         msg = await event.reply(message_to_reply, file=VAMPpic)
         await asyncio.sleep(2)
@@ -138,13 +138,13 @@ async def _(event):
                 event.chat_id, f"__**I'm going afk🚶**__ \n⚜️ Because `{reason}`", file=VAMPpic
             )
         else:
-            await borg.send_message(event.chat_id, f"**I am Going afk!**🚶", file=W2Hpic)
+            await borg.send_message(event.chat_id, f"**I am Going afk!**🚶", file=VAMPpic)
         await asyncio.sleep(0.001)
         await event.delete()
         try:
             await borg.send_message(  # pylint:disable=E0602
                 Config.PRIVATE_GROUP_BOT_API_ID,  # pylint:disable=E0602
-                f"#AFKTRUE \nSet AFK mode to True, and Reason is {reason}",file=W2Hpic
+                f"#AFKTRUE \nSet AFK mode to True, and Reason is {reason}",file=VAMPpic
             )
         except Exception as e:  # pylint:disable=C0103,W0703
             logger.warn(str(e))  # pylint:disable=E0602

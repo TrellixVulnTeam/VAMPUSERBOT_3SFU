@@ -42,7 +42,7 @@ async def set_not_afk(event):
     if ".afk" not in current_message and "yes" in USER_AFK:  # pylint:disable=E0602
         VAMPBOT = await borg.send_message(
             event.chat_id,
-            "__**Back to Virtual World!**__\nNo Longer afk.\n⏱️ Was afk for:``"
+            "__**Back to Virtual World!**__\nNo Longer afk.\n⏱️ Was afk for: `"
             + total_afk_time
             + "`", file=VAMPpic
         )
@@ -50,8 +50,9 @@ async def set_not_afk(event):
             await borg.send_message(  # pylint:disable=E0602
                 Config.PRIVATE_GROUP_BOT_API_ID,  # pylint:disable=E0602
                 "#AFKFALSE \nSet AFK mode to False\n"
-                + "__**Back to Virtual World!**__\nNo Longer afk.\n⏱️ Was afk for:``"
+                + "__**Back to Virtual World!**__\nNo Longer afk.\n⏱️ Was afk for: `"
                 + total_afk_time
+                + "`"
             )
         except Exception as e:  # pylint:disable=C0103,W0703
             await borg.send_message(  # pylint:disable=E0602
@@ -95,9 +96,9 @@ async def on_afk(event):
         
         message_to_reply = (
             f"I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`\n"
-            + f"\n**💬 Reason :"" {reason}`"
+            + f"\n**💬 Reason : `{reason}`"
   if reason
-            else f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`\n"+ f"\n**💬 Reason : {reason}`\nI'll be back when I feel to come🚶 ")
+            else f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`\n"+ f"\n**💬 Reason : `{reason}`\nI'll be back when I feel to come🚶 ")
         msg = await event.reply(message_to_reply, file=VAMPpic)
         await asyncio.sleep(2)
         if event.chat_id in last_afk_message:  # pylint:disable=E0602

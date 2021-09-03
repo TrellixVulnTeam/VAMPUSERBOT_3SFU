@@ -12,8 +12,8 @@ from userbot import bot as VAMPBOT
 DELETE_TIMEOUT = 5
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Vamp User"
 VAMP_logo = "./VAMPBOT/Vampbot_logo.jpg"
-aura = W2HBOT.uid
-W2H = f"[{DEFAULTUSER}](tg://user?id={aura})"
+aura = VAMPBOT.uid
+VAMP = f"[{DEFAULTUSER}](tg://user?id={aura})"
 
 @VAMPBOT.on(admin_cmd(pattern=r"send (?P<shortname>\w+)", outgoing=True))
 @VAMPBOT.on(sudo_cmd(pattern=r"send (?P<shortname>\w+)", allow_sudo=True))

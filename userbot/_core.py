@@ -10,10 +10,10 @@ from userbot import *
 from userbot import bot as VAMPBOT
 
 DELETE_TIMEOUT = 5
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "vamp User"
-VAMP_logo = "./vamp/VAMPBOT_logo.jpg"
-aura = VAMPBOT.uid
-vamp = f"[{DEFAULTUSER}](tg://user?id={aura})"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Vamp User"
+VAMP_logo = "./VAMPBOT/Vampbot_logo.jpg"
+aura = W2HBOT.uid
+W2H = f"[{DEFAULTUSER}](tg://user?id={aura})"
 
 @VAMPBOT.on(admin_cmd(pattern=r"send (?P<shortname>\w+)", outgoing=True))
 @VAMPBOT.on(sudo_cmd(pattern=r"send (?P<shortname>\w+)", allow_sudo=True))
@@ -23,7 +23,7 @@ async def send(event):
     message_id = event.message.id
     thumb = VAMP_logo
     input_str = event.pattern_match.group(1)
-    omk = f"**⍟ Plugin name ≈** `{input_str}`\n**⍟ Uploaded by ≈** {vamp}\n\n⚡ **[ℓεɠεɳ∂α૨ყ αƒ ʋαʍքɮօȶ](t.me/VAMPBOT_OFFICIAL)** ⚡"
+    omk = f"**⍟ Plugin name ≈** `{input_str}`\n**⍟ Uploaded by ≈** {VAMP}\n\n⚡ **[Legendary AF VAMPBOT](t.me/VAMPBOT_OFFICIAL)** ⚡"
     the_plugin_file = "./userbot/plugins/{}.py".format(input_str)
     if os.path.exists(the_plugin_file):
         lauda = await event.client.send_file(
@@ -71,7 +71,7 @@ async def install(event):
                             a = "__Installing...__"
                             b = 1
                         await event.edit(a)
-                    return await event.edit(f"✅ **Installed module** :- `{shortname}` \n✨ BY :- {vamp}\n\n{string}\n\n        ⚡ **[Legendary VAMPBOT](t.me/VAMPBOT_OFFICIAL)** ⚡", link_preview=False)
+                    return await event.edit(f"✅ **Installed module** :- `{shortname}` \n✨ BY :- {VAMP}\n\n{string}\n\n        ⚡ **[Legendary AF VAMPBOT](t.me/VAMPBOT_OFFICIAL)** ⚡", link_preview=False)
                 return await event.edit(f"Installed module `{os.path.basename(downloaded_file_name)}`")
             else:
                 os.remove(downloaded_file_name)
@@ -140,5 +140,5 @@ CmdHelp("core").add_command(
 ).add_command(
   "send", "<file name>", "Sends the given file from your userbot server, if any.", "send alive"
 ).add_command(
-  "cmds", None, "Gives out the list of modules in VAMPBOT."
+  "cmds", None, "Gives out the list of modules in W2HBOT."
 ).add()
